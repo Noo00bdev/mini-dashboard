@@ -30,7 +30,14 @@ function active(element, text, paths1, paths2){
             */ 
             const next = current === ACTIVE_SRC ? INACTIVE_SRC : ACTIVE_SRC;
             element.setAttribute('src', next);
-        text.classList.toggle('text-user-icon')
+            const links = document.querySelectorAll('a');
+       
+            links.forEach(link => {
+                // D'abord, enlever la classe de tous les liens
+                links.forEach(l => l.classList.remove('text-user-icon'));
+                // Puis, ajouter la classe uniquement au lien cliqué
+            });
+            text.classList.add('text-user-icon')   
     });
     } else {
         console.warn("Element with id 'nav-img-home' not found.");
@@ -67,7 +74,6 @@ navItems.forEach(item => {
         //selectionne tout les image de navitems
       const img = i.querySelector('img');
       if (img) img.setAttribute('src', img.dataset.srcBase); // <- dataset sur img
-      
     });
 
     // Changer l'image de l'élément cliqué
