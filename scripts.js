@@ -8,6 +8,8 @@ const statImg = document.getElementById('nav-img-statistic')
 const statText = document.getElementById('statistic-text')
 const settImg = document.getElementById('nav-img-settings')
 const settText = document.getElementById('settings-text')
+const modify = document.getElementById('modify');
+const modifyForm = document.getElementById('modify-form');
 
 /**
  * 
@@ -91,10 +93,10 @@ const ctx = document.getElementById('myChart');
 new Chart(ctx, {
 type: 'bar',
 data: {
-    labels: ['Janvier', 'Février', 'Mars', 'Avril', 'Mai', 'Juin'],
+    labels: ['Janvier', 'Février', 'Mars', 'Avril', 'Mai', 'Juin','Juillet','Août','Septembre','Novembre','Decembre'],
     datasets: [{
     label: 'Ventes (€)',
-    data: [120, 190, 300, 250, 200, 320],
+    data: [120, 190, 300, 250, 200, 320,199, 390, 650, 500, 420],
     backgroundColor: 'rgba(59, 130, 246, 0.5)',
     borderColor: 'rgb(59, 130, 246)',
     borderWidth: 2,
@@ -111,3 +113,20 @@ options: {
     }
 }
 });
+
+
+/* Modifier le graphe*/
+modify.addEventListener('click', (e) => {
+    e.preventDefault();
+    const conteneur = document.createElement("div")
+
+
+    const inputText = document.createElement('input');
+    inputText.setAttribute('type', 'text');
+    inputText.setAttribute('placeholder', 'Entrer le nombre de Mois');
+    inputText.classList.add('text-user-icon','bg-white','p-2');
+
+
+    conteneur.appendChild(inputText);
+    modifyForm.appendChild(conteneur);
+})

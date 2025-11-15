@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="src/output.css">
+    <link rel="stylesheet" href="src/input.css">
     <title>Dashboard</title>
 </head>
 <body class="bg-background w-full h-full relative m-0 p-0">
@@ -31,7 +31,7 @@
                 </li>
             </ul>
         </div>
-        <div class="relative flex flex-row justify-between items-center pb-4 mb-4 p-2 md:ml-32 md:-top-1 border-b border-gray-300 md:border-none">
+        <div class="relative md:fixed md:gap-170 flex flex-row justify-between items-center pb-4 mb-4 p-2 md:ml-32 md:-top-1 border-b border-gray-300 md:border-none">
             <p class="font-bold text-text-primary">Tableau de Bord</p>
             <div class="flex relative">
                 <input name="search" id="search-input" placeholder="Rechercher..." class="focus:outline-none hidden md:block rounded-xl bg-white border-2 border-border-light placeholder-text-secondary placeholder:text-xs placeholder:p-4 placeholder:mb-2">
@@ -40,7 +40,7 @@
         </div>
         
     </header>
-    <main class="md:ml-32 overflow-y-auto h-fit pb-10">
+    <main class="md:mt-12 md:ml-32 overflow-y-auto h-fit pb-10">
         <section class = "flex flex-col gap-4 p-4 sm:grid sm:grid-cols-2 md:flex md:flex-row md:gap-4 md:justify-around">
             <div class="bg-white p-12 rounded-xl md:flex-1"><span id="blc1"></span></div>
             <div class="bg-white p-12 rounded-xl md:flex-1"><span id="blc2"></span></div>
@@ -49,14 +49,20 @@
             
         </section>
         <section class="md:flex md:flex-col lg:flex lg:flex-row p-4">
-            <section class="m-4 md:flex-4 md:m-2">
-                
-                <div class="bg-white  rounded-2xl">
-                    <canvas id="myChart" width="200" height="200" class="p-24 w-24 h-36 sm:w-28 sm:h-40 md:w-32 md:h-48 lg:w-48 lg:h-56"></canvas>
+            <section class="m-1 md:flex-4 md:m-2">
+                <div class="flex gap-3 w-fit mb-2 md:absolute  p-2 rounded-2xl" >
+                    <button id="modify" class="bg-blue-400 p-1 hover:bg-blue-700/70 rounded-xs">
+                        <img src="img/modify.png" alt="" >
+                    </button>
+                    <div id="modify-form">
+                    </div>
+                </div>
+                <div class="bg-white p-5 rounded-2xl">
+                    <canvas id="myChart" class="w-full h-64"></canvas>
                 </div>
             </section>
-            <section class="m-4 md:m-1 md:flex-2">
-                <div class="bg-blue-500 p-5 rounded-2xl"> <img src="img/modify.png" alt="" class="bg-amber-50 m-2.5"><p>bonjour</p></div>
+            <section class="m-2 md:m-1 md:flex-2">
+                <div class="bg-white p-5 rounded-2xl"><p>bonjour</p></div>
             </section>
         </section>
     </main>
