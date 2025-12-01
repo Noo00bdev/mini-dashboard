@@ -118,15 +118,9 @@ options: {
 /* Modifier le graphe*/
 modify.addEventListener('click', (e) => {
     e.preventDefault();
-    const conteneur = document.createElement("div")
-
-
-    const inputText = document.createElement('input');
-    inputText.setAttribute('type', 'text');
-    inputText.setAttribute('placeholder', 'Entrer le nombre de Mois');
-    inputText.classList.add('text-user-icon','bg-white','p-2');
-
-
-    conteneur.appendChild(inputText);
-    modifyForm.appendChild(conteneur);
+    modifyForm.style.display =
+        /* Si le style d'affichage actuel est 'block', le changer en 'none', sinon en 'block' */
+        modifyForm.style.display === 'block'
+            ? 'none'
+            : 'block';
 })
