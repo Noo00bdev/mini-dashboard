@@ -10,6 +10,10 @@ const settImg = document.getElementById('nav-img-settings')
 const settText = document.getElementById('settings-text')
 const modify = document.getElementById('modify');
 const modifyForm = document.getElementById('modify-form');
+const addMonthBtn = document.getElementById('add-month-btn');
+const monthList = document.getElementById('values-container');
+const saveBtn = document.getElementById('save-btn');
+const monthSection = document.getElementById('MonthName');
 
 /**
  * 
@@ -123,4 +127,60 @@ modify.addEventListener('click', (e) => {
         modifyForm.style.display === 'block'
             ? 'none'
             : 'block';
+})
+// Ajouter un mois
+addMonthBtn.addEventListener('click', (e) => {
+    e.preventDefault();
+    const div = document.createElement('div');
+    div.className = 'month-entry flex gap-16 mb-2 ml-4 border-b-1 pb-2';
+    div.innerHTML = `
+        <select name="month" class="MonthName" >
+            <option value="Janvier">Janvier</option>
+            <option value="Février">Février</option>
+            <option value="Mars">Mars</option>
+            <option value="Avril">Avril</option>
+            <option value="Mai">Mai</option>
+            <option value="Juin">Juin</option>
+            <option value="Juillet">Juillet</option>
+            <option value="Août">Août</option>
+            <option value="Septembre">Septembre</option>
+            <option value="Octobre">Octobre</option>
+            <option value="Novembre">Novembre</option>
+            <option value="Décembre">Décembre</option>  
+        </select>
+        <input type="number" placeholder="Valeur (€)" class="month-value focus:outline-none border-2 p-2 border-black rounded-xl w-52 md:w-80" required>
+    `;
+    monthList.appendChild(div);
+
+
+    console.log('Ajouter un mois cliqué !');
+});
+saveBtn.addEventListener('click', (e) => {
+    e.preventDefault();
+    const monthSelects = document.querySelectorAll('.MonthName');
+    const monthValues = document.querySelectorAll('.month-value');
+
+    const newLabels = [];
+    const newData = [];
+
+    monthSelects.forEach((select, index) => {
+        newLabels.push(select.value);
+        newData.push(parseFloat(monthValues[index].value));
+    });
+
+
+
+
+
+    // Mettre à jour le graphique avec les nouvelles données
+    const chart = Chart.getChart('myChart');
+    chart.data.labels = newLabels;
+    chart.data.datasets[0].data = newData;
+    chart.update();
+
+
+    // Cacher le formulaire après sauvegarde
+    modifyForm.style.display = 'none';
+
+    console.log('Données sauvegardées !');
 })
