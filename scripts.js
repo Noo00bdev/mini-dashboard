@@ -15,6 +15,7 @@ const monthList = document.getElementById('values-container');
 const saveBtn = document.getElementById('save-btn');
 const monthSection = document.getElementById('MonthName');
 
+
 /**
  * 
  * @param {HTMLElement} element 
@@ -72,6 +73,7 @@ active(settImg, settText, 'img/settings-active.png', 'img/settings.png')
 const navItems = document.querySelectorAll('.nav-item');
 
 
+
 navItems.forEach(item => {
   item.addEventListener('click', () => {
 
@@ -127,6 +129,8 @@ modify.addEventListener('click', (e) => {
         modifyForm.style.display === 'block'
             ? 'none'
             : 'block';
+
+    monthList.focus();
 })
 // Ajouter un mois
 addMonthBtn.addEventListener('click', (e) => {
@@ -177,10 +181,66 @@ saveBtn.addEventListener('click', (e) => {
     chart.data.labels = newLabels;
     chart.data.datasets[0].data = newData;
     chart.update();
-
+    BestSale();
+    PireVentes();
+    DynamiqueVentes();
+    MoyenneVentes()
 
     // Cacher le formulaire après sauvegarde
     modifyForm.style.display = 'none';
 
     console.log('Données sauvegardées !');
 })
+
+function DynamiqueVentes(){
+    const ventes = document.getElementById('ventes');
+    const chart = Chart.getChart('myChart');
+    const AllVentes = chart.data.datasets[0].data;
+    const totalVentes = AllVentes.reduce((acc, val) => acc + val, 0);
+    ventes.textContent = totalVentes + ' €';
+    ventes.className = 'text-2xl font-bold text-green-600';
+}
+DynamiqueVentes();
+
+function BestSale(){
+    const chart = Chart.getChart('myChart');
+    if (!chart) return;
+    const AllVentes = chart.data.datasets[0].data || [];
+    const AllMonth = chart.data.labels || [];
+    // number convertir en nombre et filter filtre les valeurs qui seront peut Nan
+    const nums = AllVentes.map(v => Number(v)).filter(n => !isNaN(n));
+    const MaxVents = nums.length ? Math.max(...nums) : 0;
+    let index = nums.indexOf(MaxVents);
+    const bestVente = document.getElementById('bestSales');
+    bestVente.className = 'text-2xl font-bold text-green-600';
+    if (bestVente) bestVente.textContent = `${AllMonth[index]} : ${MaxVents} €`;
+}
+BestSale();
+
+function PireVentes(){
+    const container = document.getElementById('worstSales');
+    const chart = Chart.getChart('myChart');
+    if (!chart) return;
+    const AllVentes = chart.data.datasets[0].data || [];
+    const AllMonth = chart.data.labels || [];
+    const ventes = AllVentes.map(v => Number(v));
+    const minVentes = ventes.length ? Math.min(...ventes) : 0;
+    const index = ventes.indexOf(minVentes);
+    container.className = 'text-2xl font-bold text-green-600';
+    if(container) container.textContent = ` ${AllMonth[index]} : ${minVentes} €`
+}
+PireVentes();
+
+function MoyenneVentes(){
+    const container = document.getElementById('moySales');
+    const chart = Chart.getChart('myChart');
+    if (!chart) return;
+    const AllVentes = chart.data.datasets[0].data || [];
+    const sum = Math.round(AllVentes.reduce((acc, val) => acc + val, 0));
+    const moy = sum.toFixed(2);
+    container.className = 'text-2xl font-bold text-green-600';
+    if(container) container.textContent =`${moy} €`
+}
+MoyenneVentes()
+
+

@@ -31,21 +31,28 @@
                 </li>
             </ul>
         </div>
-        <div class="relative md:fixed md:gap-170 flex flex-row justify-between items-center pb-4 mb-4 p-2 md:ml-32 md:-top-1 border-b border-gray-300 md:border-none">
-            <p class="font-bold text-text-primary">Tableau de Bord</p>
-            <div class="flex relative">
-                <input name="search" id="search-input" placeholder="Rechercher..." class="focus:outline-none hidden md:block rounded-xl bg-white border-2 border-border-light placeholder-text-secondary placeholder:text-xs placeholder:p-4 placeholder:mb-2">
-                <img src="img/search.png" alt="" class="md:absolute md:right-2 md:top-1/2 md:-translate-y-1/2 w-10 md:w-5 h-10 md:h-5">
+        <div class="relative   flex flex-row justify-between items-center pb-4 mb-4 p-2 md:ml-32  border-b border-gray-300 md:border-none">
+            <p class="font-bold text-text-primary md:text-xs md:fixed md:top-3">Tableau de Bord</p>
+            <div class="flex">
+                <input name="search" id="search-input" placeholder="Rechercher..." class="focus:outline-none hidden md:block rounded-xl bg-white border-2 border-border-light placeholder-text-secondary placeholder:text-xs placeholder:p-4 placeholder:mb-2 md:w-56 md:fixed right-1 md:top-2 ">
             </div>
         </div>
         
     </header>
     <main class="md:mt-12 md:ml-32 overflow-y-auto h-fit pb-10">
         <section class = "flex flex-col gap-4 p-4 sm:grid sm:grid-cols-2 md:flex md:flex-row md:gap-4 md:justify-around">
-            <div class="bg-white p-12 rounded-xl md:flex-1"><span id="blc1"></span></div>
-            <div class="bg-white p-12 rounded-xl md:flex-1"><span id="blc2"></span></div>
-            <div class="bg-white p-12 rounded-xl md:flex-1"><span id="blc3"></span></div>
-            <div class="bg-white p-12 rounded-xl md:flex-1"><span id="blc4"></span></div>
+            <div class="bg-white p-4 rounded-xl flex flex-col md:flex-1">Vente :
+                <span id="ventes"></span>
+            </div>
+            <div class="bg-white p-4 flex flex-col rounded-xl md:flex-1">Meilleur Ventes:
+                <span id="bestSales"></span>
+            </div>
+            <div class="bg-white p-4 flex flex-col rounded-xl md:flex-1">Pire ventes:
+                <span id="worstSales"></span>
+            </div>
+            <div class="bg-white p-4 flex flex-col rounded-xl md:flex-1">Moyenne des ventes:
+                <span id="moySales"></span>
+            </div>
             
         </section>
         <section class="md:flex md:flex-col lg:flex lg:flex-row p-4">
@@ -76,7 +83,7 @@
 
                     </div>
                     <div class="flex flex-col gap-2">
-                        <div id="values-container" class="flex gap-2 flex-wrap mb-2">
+                        <div id="values-container" tabindex="0"  class="flex gap-2 flex-wrap mb-2">
                             <!-- Les cases à cocher pour les valeurs seront ajoutées ici dynamiquement -->
                         </div>
                         <div class="flex gap-4 justify-end">
@@ -93,7 +100,6 @@
             </section>
             <section class="m-2 md:m-1 md:flex-2">
                 <div class="bg-white p-5 rounded-2xl"><p>bonjour</p></div>
-
             </section>
         </section>
     </main>
