@@ -203,6 +203,7 @@ function DynamiqueVentes(){
 DynamiqueVentes();
 
 function BestSale(){
+    const bestVente = document.getElementById('bestSales');
     const chart = Chart.getChart('myChart');
     if (!chart) return;
     const AllVentes = chart.data.datasets[0].data || [];
@@ -211,9 +212,13 @@ function BestSale(){
     const nums = AllVentes.map(v => Number(v)).filter(n => !isNaN(n));
     const MaxVents = nums.length ? Math.max(...nums) : 0;
     let index = nums.indexOf(MaxVents);
-    const bestVente = document.getElementById('bestSales');
-    bestVente.className = 'text-2xl font-bold text-green-600';
-    if (bestVente) bestVente.textContent = `${AllMonth[index]} : ${MaxVents} €`;
+
+    if (AllMonth[index] !== null && index !== -1){
+        bestVente.className = 'text-2xl font-bold text-green-600';
+        bestVente.textContent = `${AllMonth[index]} : ${MaxVents} €`;
+    }else{
+        bestVente.textContent = `Aucune donnée`;
+    }
 }
 BestSale();
 
@@ -226,8 +231,14 @@ function PireVentes(){
     const ventes = AllVentes.map(v => Number(v));
     const minVentes = ventes.length ? Math.min(...ventes) : 0;
     const index = ventes.indexOf(minVentes);
-    container.className = 'text-2xl font-bold text-green-600';
-    if(container) container.textContent = ` ${AllMonth[index]} : ${minVentes} €`
+
+    if(AllMonth[index] !== null && index !== -1) {
+        container.className = 'text-2xl font-bold text-green-600';
+        container.textContent = ` ${AllMonth[index]} : ${minVentes} €`
+    }else{
+        container.textContent = 'Aucune donnée';
+    }
+
 }
 PireVentes();
 
@@ -236,10 +247,10 @@ function MoyenneVentes(){
     const chart = Chart.getChart('myChart');
     if (!chart) return;
     const AllVentes = chart.data.datasets[0].data || [];
-    const sum = Math.round(AllVentes.reduce((acc, val) => acc + val, 0));
+    const sum = AllVentes.length ? Math.round(AllVentes.reduce((acc, val) => acc + val, 0)) : 0;
     const moy = sum.toFixed(2);
     container.className = 'text-2xl font-bold text-green-600';
-    if(container) container.textContent =`${moy} €`
+    if(container && moy) container.textContent =`${moy} €`
 }
 MoyenneVentes()
 
