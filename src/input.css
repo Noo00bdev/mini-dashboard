@@ -4,12 +4,14 @@
   /* --- Couleurs principales --- */
   --color-primary: #3B82F6;
   --color-secondary: #0F172A;
-  --color-background: #f5f5f5;
+  --color-background: #ffffff;
+  --color-foreground: #f6f7f8;
   --color-card: #FFFFFF;
 
   /* --- Texte --- */
   --color-text-primary: #0F172A;
   --color-text-secondary: #64748B;
+  --color-text: #FFFFFF;
 
   /* --- États --- */
   --color-success: #22C55E;
