@@ -4,7 +4,7 @@
   /* --- Couleurs principales --- */
   --color-primary: #3B82F6;
   --color-secondary: #0F172A;
-  --color-background: #ffffff;
+  --color-background: rgba(241, 238, 238, 0.54);
   --color-foreground: #f6f7f8;
   --color-card: #FFFFFF;
 

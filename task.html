@@ -11,22 +11,22 @@
     <header class="">
         <div class=" fixed bottom-0  md:left-0 md:top-0  border-0 border-r-gray-300 bg-white md:bg-white md:border-r-2  w-full md:h-full md:w-30">
             <ul class="flex w-screen justify-between p-2 md:flex-col md:gap-5">
-                <div class="hidden md:block border-b border-gray-300 pb-2 mb-0 w-full">
+                <div class="hidden  md:block border-b border-gray-300 pb-2 mb-0 w-full">
                     <p class="hidden md:block text-text-primary font-bold">Mon tableau</p>
                 </div>
-                <li class="nav-item flex items-center flex-col md:flex-row md:gap-1.5">
+                <li class="nav-item w-fit flex items-center flex-col md:flex-row md:gap-1.5">
                     <a href="index.html"><img src="img/home.png" alt="" class="img w-5 h-5" id="nav-img-home" data-src-base="img/home.png" data-src-active="img/home-active.png"></a>
                     <a href="index.html" class="text-text-secondary text-xs rounded hover:text-user-icon " id="home-text">Accueil</a>
                 </li>
-                <li class="nav-item flex items-center flex-col md:flex-row md:gap-1.5">
+                <li class="nav-item w-fit flex items-center flex-col md:flex-row md:gap-1.5">
                     <img src="img/task-active.png" alt="" class="img w-5 h-5" id="nav-img-task" data-src-base="img/task.png" data-src-active="img/task-active.png">
                     <a href="#" class="text-xs rounded text-user-icon hover:text-user-icon" id="task-text">Tâches</a>
                 </li>
-                <li class="nav-item flex items-center flex-col md:flex-row md:gap-1.5">
+                <li class="nav-item w-fit flex items-center flex-col md:flex-row md:gap-1.5">
                     <img src="img/statistic.png" alt="" class="img w-5 h-5" id="nav-img-statistic" data-src-base="img/statistic.png" data-src-active="img/statistic-active.png">
                     <a href="#" class="text-text-secondary text-xs rounded hover:text-user-icon" id="statistic-text">Statistiques</a>
                 </li>
-                <li class="nav-item flex items-center flex-col md:flex-row md:gap-1.5">
+                <li class="nav-item w-fit flex items-center flex-col md:flex-row md:gap-1.5">
                     <img src="img/settings.png" alt="" class="img w-5 h-5" id="nav-img-settings" data-src-base="img/settings.png" data-src-active="img/settings-active.png">
                     <a href="#" class="text-text-secondary text-xs rounded hover:text-user-icon" id="settings-text">Paramètres</a>
                 </li>
@@ -39,10 +39,10 @@
     </header>
     <main>
         <section class="">
-            <div>
-                <div class="relative m-3 bg-background rounded-lg">
+            <div class="md:flex md:flex-row lg:flex-row md:ml-28 lg:ml-32 md:justify-between">
+                <div class="relative md:w-full lg:w-full m-3 bg-background rounded-lg">
                     <i class="fa-solid fa-magnifying-glass absolute left-2 top-3.5" style="color: var(--color-text-secondary)"></i>
-                    <input type="text" class="w-full outline-none p-2 rounded-lg border-2 border-border-light placeholder-text-secondary" placeholder="      Rechercher une tâche...">
+                    <input type="text" class="w-full md:w-full lg:w-full p-2 rounded-lg border-2 border-border-light placeholder-text-secondary" placeholder="      Rechercher une tâche...">
                 </div>
                 <div class="m-3 flex flex-row gap-4">
                     <select name="" id="" class="bg-background p-2.5 rounded-lg">
