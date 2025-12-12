@@ -9,9 +9,9 @@
 </head>
 <body class="bg-foreground w-full h-full relative m-0 p-0">
     <header class="">
-        <div class=" fixed bottom-0  md:left-0 md:top-0  border-0 border-r-gray-300 bg-white md:bg-white md:border-r-2  w-full md:h-full md:w-30">
+        <div class="fixed bottom-0 md:left-0 md:top-0 border-0 border-r-gray-300 bg-white md:bg-white md:border-r-2 w-full md:h-full md:w-30 z-40">
             <ul class="flex w-screen justify-between p-2 md:flex-col md:gap-5">
-                <div class="hidden  md:block border-b border-gray-300 pb-2 mb-0 w-full">
+                <div class="hidden md:block border-b border-gray-300 pb-2 mb-0 w-full">
                     <p class="hidden md:block text-text-primary font-bold">Mon tableau</p>
                 </div>
                 <li class="nav-item w-fit flex items-center flex-col md:flex-row md:gap-1.5">
@@ -32,9 +32,12 @@
                 </li>
             </ul>
         </div>
-        <div class="flex flex-row  justify-between pb-4 mb-4 p-2 md:ml-32  border-b border-gray-300 md:border-none">
+        <div class="flex flex-row justify-between pb-4 mb-4 p-2 md:ml-32 border-b border-gray-300 md:border-none relative z-50">
             <p class="font-bold text-text-primary md:text-xs mt-1">Tâches</p>
-            <button class="bg-primary flex flex-row items-center gap-1 pl-2 pr-2 rounded-xs" id="btnAddTask"><i class="fa-solid fa-plus " style="color: #FFFFFF;"></i><span class="hidden md:block lg:block text-text font-medium">Nouvelle Tâche</span></button>
+            <button class="bg-primary flex flex-row items-center gap-1 pl-2 pr-2 rounded-xs cursor-pointer" id="btnAddTask">
+                <i class="fa-solid fa-plus" style="color: #FFFFFF;"></i>
+                <span class="hidden md:block lg:block text-text font-medium">Nouvelle Tâche</span>
+            </button>
         </div>
     </header>
     <main>
