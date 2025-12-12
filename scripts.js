@@ -13,7 +13,9 @@ const modifyForm = document.getElementById('modify-form');
 const addMonthBtn = document.getElementById('add-month-btn');
 const monthList = document.getElementById('values-container');
 const saveBtn = document.getElementById('save-btn');
-const monthSection = document.getElementById('MonthName');
+
+
+
 
 
 /**
@@ -253,5 +255,8 @@ function MoyenneVentes(){
     if(container && moy) container.textContent =`${moy} €`
 }
 MoyenneVentes()
+
+
+
 
 
