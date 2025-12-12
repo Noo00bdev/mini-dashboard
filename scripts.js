@@ -242,34 +242,55 @@ document.addEventListener('DOMContentLoaded', () => {
             console.log('Bouton Nouvelle Tâche cliqué !');
 
             const container = document.getElementById('taskContainer');
+            container.classList.remove('hidden');
             if (!container) {
                 console.error('taskContainer introuvable');
                 return;
             }
 
             const div = document.createElement('div');
-            div.className = 'flex flex-col gap-2 p-4 border-none rounded-lg bg-white shadow-md w-fit ml-28 lg:ml-32 mt-4';
+            div.className = 'flex flex-col gap-2 p-4 border-none rounded-lg bg-white shadow-md w-fit ml-28 lg:ml-32 mt-4 relative';
 
+            // Bouton fermer
+            let btnClose = document.createElement('button');
+            btnClose.textContent = '✕';
+            btnClose.className = 'absolute top-2 right-2 text-gray-500 hover:text-gray-700 font-bold text-xl w-8 h-8 flex items-center justify-center';
+
+            // Titre
             let title = document.createElement('h2');
             title.textContent = 'Ajout de Tâches';
-            title.className = 'font-bold text-lg';
+            title.className = 'font-bold text-lg mt-6';
 
+            // Input titre
             let taskTitle = document.createElement('input');
             taskTitle.type = 'text';
             taskTitle.placeholder = "Titre de la tâche";
             taskTitle.className = "border p-2 rounded w-full focus:outline-none border-gray-300 bg-white shadow-sm";
 
+            // Textarea description
             let description = document.createElement('textarea');
             description.placeholder = "Description de la tâche";
             description.className = "p-2 rounded w-full h-20 resize-none focus:outline-none border border-gray-300 bg-white shadow-sm";
 
+            // Ajouter les éléments au div
+            div.appendChild(btnClose);
             div.appendChild(title);
             div.appendChild(taskTitle);
             div.appendChild(description);
 
+            // Ajouter le div au container
             container.appendChild(div);
+
+            // Event listener pour fermer (directement sur le bouton créé)
+            btnClose.addEventListener('click', (e) => {
+                e.preventDefault();
+                div.remove();
+                container.classList.add('hidden')// Supprime complètement le div
+                console.log('Tâche fermée !');
+            })
         });
     } else {
         console.error('Bouton #btnAddTask introuvable');
     }
+
 });
