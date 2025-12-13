@@ -12,6 +12,7 @@ export default defineConfig({
       input: {
         main: resolve(__dirname, 'index.html'),
         task: resolve(__dirname, 'task.html'),
+        taskAddon: resolve(__dirname, 'addTask.html'),
       },
     },
   },
