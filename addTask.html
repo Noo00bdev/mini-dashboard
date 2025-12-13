@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="src/input.css">
+    <title>Dashboard</title>
+</head>
+ <body class="bg-foreground w-full h-full relative m-0 p-0">
+<header class="">
+    <div class="fixed bottom-0 md:left-0 md:top-0 border-0 border-r-gray-300 bg-white md:bg-white md:border-r-2 w-full md:h-full md:w-30 z-40">
+        <ul class="flex w-screen justify-between p-2 md:flex-col md:gap-5">
+            <div class="hidden md:block border-b border-gray-300 pb-2 mb-0 w-full">
+                <p class="hidden md:block text-text-primary font-bold">Mon tableau</p>
+            </div>
+            <li class="nav-item w-fit flex items-center flex-col md:flex-row md:gap-1.5">
+                <a href="index.html"><img src="img/home.png" alt="" class="img w-5 h-5" id="nav-img-home" data-src-base="img/home.png" data-src-active="img/home-active.png"></a>
+                <a href="index.html" class="text-text-secondary text-xs rounded hover:text-user-icon " id="home-text">Accueil</a>
+            </li>
+            <li class="nav-item w-fit flex items-center flex-col md:flex-row md:gap-1.5">
+                <img src="img/task-active.png" alt="" class="img w-5 h-5" id="nav-img-task" data-src-base="img/task.png" data-src-active="img/task-active.png">
+                <a href="#" class="text-xs rounded text-user-icon hover:text-user-icon" id="task-text">Tâches</a>
+            </li>
+            <li class="nav-item w-fit flex items-center flex-col md:flex-row md:gap-1.5">
+                <img src="img/statistic.png" alt="" class="img w-5 h-5" id="nav-img-statistic" data-src-base="img/statistic.png" data-src-active="img/statistic-active.png">
+                <a href="#" class="text-text-secondary text-xs rounded hover:text-user-icon" id="statistic-text">Statistiques</a>
+            </li>
+            <li class="nav-item w-fit flex items-center flex-col md:flex-row md:gap-1.5">
+                <img src="img/settings.png" alt="" class="img w-5 h-5" id="nav-img-settings" data-src-base="img/settings.png" data-src-active="img/settings-active.png">
+                <a href="#" class="text-text-secondary text-xs rounded hover:text-user-icon" id="settings-text">Paramètres</a>
+            </li>
+        </ul>
+    </div>
+    <div class=" pb-4 mb-4 p-2 md:ml-32 border-b border-gray-300 md:border-none relative z-50">
+        <p class="font-bold text-text-primary md:text-xl mt-0.5 "> Ajout de Tâches</p>
+    </div>
+
+</header>
+<main>
+    <section class="flex flex-col gap-4 shadow-black shadow-xs rounded bg-background p-4 m-5">
+        <h1 class="text-center font-bold text-2xl">Ajout De Taches</h1>
+        <div class="flex flex-col gap-4  " >
+            <label for="taskName" class="font-medium">
+                Titre
+            </label>
+            <input type="text" id="taskName" name="taskName" placeholder="Ajouter le titre" class="bg-white rounded-xl p-4">
+        </div>
+        <div class="flex flex-col gap-4  " >
+            <label for="taskDescription" class="font-medium" >
+                Description
+            </label>
+            <textarea name="taskDescription" id="taskDescription" cols="40" rows="4"  placeholder="Ajouter la description" class="bg-white rounded-xl p-4"></textarea>
+        </div>
+        <div class="mt" >
+            <p class="font-medium  mb-4"   > Priorité</p>
+            <div class="flex flex-row items-center gap-4" >
+                <button class="btn-Priority rounded-3xl bg-white p-4 flex-1">Petite</button>
+                <button class="btn-Priority rounded-3xl bg-white p-4 flex-1">Moyenne</button>
+                <button class="btn-Priority rounded-3xl bg-white p-4 flex-1">Haute</button>
+            </div>
+        </div>
+        <div>
+            <p class="font-medium  mb-4"> Status</p>
+            <div class="flex flex-row items-center gap-4  " >
+                <button class="btn-status rounded-3xl bg-white p-4 flex-1 ">A Faire</button>
+                <button class="btn-status rounded-3xl bg-white p-4 flex-1">En cours</button>
+            </div>
+        </div>
+
+    </section>
+    <div class="flex flex-row items-center gap-4 justify-center m-2 " >
+        <button class="rounded-3xl bg-white p-2 flex-1" id="taskCancel">
+            Annuler
+        </button>
+        <button class="rounded-3xl bg-primary text-text p-2 flex-1 " id="taskAdd">
+            Créer la Tâche
+        </button>
+    </div>
+
+</main>
+
+<script  type="module" src="/scripts.js"></script>
+</body>
+
+</html>

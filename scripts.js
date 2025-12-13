@@ -235,62 +235,153 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // GESTION DES TÂCHES
     const taskBtn = document.querySelector('#btnAddTask');
-
     if (taskBtn) {
         taskBtn.addEventListener('click', (e) => {
             e.preventDefault();
-            console.log('Bouton Nouvelle Tâche cliqué !');
+            window.location.href = 'addTask.html';
+        })
+    }
+    const taskCancelBtn = document.querySelector('#taskCancel');
+    if (taskCancelBtn) {
+        taskCancelBtn.addEventListener('click', (e) => {
+            e.preventDefault();
+            window.location.href = 'task.html';
+        })
+    }
 
-            const container = document.getElementById('taskContainer');
-            container.classList.remove('hidden');
-            if (!container) {
-                console.error('taskContainer introuvable');
+    const priorityBtn = document.querySelectorAll('.btn-Priority');
+
+    priorityBtn.forEach((btn) => {
+        btn.addEventListener('click', () => {
+            // Tous les boutons redeviennent blancs
+            priorityBtn.forEach((b) => {
+                b.classList.remove('bg-primary');
+                b.classList.remove('border-white')
+                b.classList.remove('border-4')
+                b.classList.remove('border-double')
+                b.classList.remove('text-text')
+                b.classList.add('bg-white');
+            });
+
+            // Le bouton cliqué devient bleu
+            btn.classList.remove('bg-white');
+            btn.className = 'btn-Priority rounded-3xl text-text bg-primary p-4 flex-1 border-4 border-double border-white';
+        });
+    });
+
+    const statusBtn = document.querySelectorAll('.btn-status');
+
+    statusBtn.forEach((btn) => {
+        btn.addEventListener('click', () => {
+            // Tous les boutons redeviennent blancs
+            statusBtn.forEach((b) => {
+                b.classList.remove('bg-primary/40');
+                b.classList.remove('border-white')
+                b.classList.remove('border-4')
+                b.classList.remove('border-double')
+                b.classList.remove('text-text')
+                b.classList.remove('font-bold')
+                b.classList.add('bg-white');
+            });
+
+            // Le bouton cliqué devient bleu
+            btn.classList.remove('bg-white');
+            btn.className = 'btn-Priority rounded-3xl text-text font-bold bg-primary/40 p-4 flex-1 border-4 border-double border-white';
+        });
+    });
+
+    const taskAddBtn = document.querySelector('#taskAdd');
+
+    if (taskAddBtn) {
+        taskAddBtn.addEventListener('click', (e) => {
+            e.preventDefault();
+
+            const taskName = document.querySelector('#taskName');
+            const taskDescription = document.querySelector('#taskDescription');
+
+            if (!taskName || !taskDescription) {
+                alert('Erreur: champs introuvables');
                 return;
             }
 
-            const div = document.createElement('div');
-            div.className = 'flex flex-col gap-2 p-4 border-none rounded-lg bg-white shadow-md w-fit ml-28 lg:ml-32 mt-4 relative';
+            const name = taskName.value.trim();
+            const desc = taskDescription.value.trim();
 
-            // Bouton fermer
-            let btnClose = document.createElement('button');
-            btnClose.textContent = '✕';
-            btnClose.className = 'absolute top-2 right-2 text-gray-500 hover:text-gray-700 font-bold text-xl w-8 h-8 flex items-center justify-center';
+            if (!name || !desc) {
+                alert('Veuillez remplir tous les champs');
+                return;
+            }
 
-            // Titre
-            let title = document.createElement('h2');
-            title.textContent = 'Ajout de Tâches';
-            title.className = 'font-bold text-lg mt-6';
+            // Récupérer les tâches existantes
+            let tasks = localStorage.getItem('tasks');
+            if (!tasks) {
+                tasks = [];
+            } else {
+                tasks = JSON.parse(tasks);
+            }
 
-            // Input titre
-            let taskTitle = document.createElement('input');
-            taskTitle.type = 'text';
-            taskTitle.placeholder = "Titre de la tâche";
-            taskTitle.className = "border p-2 rounded w-full focus:outline-none border-gray-300 bg-white shadow-sm";
+            // Ajouter la nouvelle tâche
+            tasks.push({
+                id: Date.now(),
+                title: name,
+                description: desc
+            });
 
-            // Textarea description
-            let description = document.createElement('textarea');
-            description.placeholder = "Description de la tâche";
-            description.className = "p-2 rounded w-full h-20 resize-none focus:outline-none border border-gray-300 bg-white shadow-sm";
+            // Sauvegarder
+            localStorage.setItem('tasks', JSON.stringify(tasks));
 
-            // Ajouter les éléments au div
-            div.appendChild(btnClose);
-            div.appendChild(title);
-            div.appendChild(taskTitle);
-            div.appendChild(description);
-
-            // Ajouter le div au container
-            container.appendChild(div);
-
-            // Event listener pour fermer (directement sur le bouton créé)
-            btnClose.addEventListener('click', (e) => {
-                e.preventDefault();
-                div.remove();
-                container.classList.add('hidden')// Supprime complètement le div
-                console.log('Tâche fermée !');
-            })
+            // Rediriger
+            window.location.href = "task.html";
         });
-    } else {
-        console.error('Bouton #btnAddTask introuvable');
+    }
+
+// Afficher les tâches sur task.html
+    const taskContainer = document.getElementById('taskAddContainer');
+    if (taskContainer) {
+        // Récupérer les tâches
+        let tasks = localStorage.getItem('tasks');
+
+        if (!tasks || tasks === '[]') {
+            taskContainer.innerHTML = '<p class="text-center text-gray-500 p-4">Aucune tâche. Cliquez sur "Nouvelle Tâche" pour commencer.</p>';
+        } else {
+            tasks = JSON.parse(tasks);
+            taskContainer.innerHTML = '';
+
+            tasks.forEach(task => {
+                const div = document.createElement('div');
+                div.className = 'bg-white p-4 rounded-xl mb-3 shadow-sm border border-gray-200';
+
+                div.innerHTML = `
+                <div class="flex justify-between items-start">
+                    <div class="flex-1">
+                        <h3 class="font-bold text-lg mb-2 text-text-primary">${task.title}</h3>
+                        <p class="text-gray-600">${task.description}</p>
+                    </div>
+                    <button class="delete-task text-red-500 hover:text-red-700 ml-4" data-id="${task.id}">
+                        <i class="fa-solid fa-trash"></i>
+                    </button>
+                </div>
+            `;
+
+                taskContainer.appendChild(div);
+            });
+
+            // Ajouter les événements de suppression
+            document.querySelectorAll('.delete-task').forEach(btn => {
+                btn.addEventListener('click', (e) => {
+                    const taskId = parseInt(e.currentTarget.dataset.id);
+
+                    if (confirm('Supprimer cette tâche ?')) {
+                        let tasks = JSON.parse(localStorage.getItem('tasks'));
+                        tasks = tasks.filter(t => t.id !== taskId);
+                        localStorage.setItem('tasks', JSON.stringify(tasks));
+
+                        // Recharger la page
+                        window.location.reload();
+                    }
+                });
+            });
+        }
     }
 
 });
