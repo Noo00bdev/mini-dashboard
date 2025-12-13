@@ -9,56 +9,72 @@
 </head>
 <body class="bg-foreground w-full h-full relative m-0 p-0">
     <header class="">
-        <div class=" fixed bottom-0  md:left-0 md:top-0  border-0 border-r-gray-300 bg-white md:bg-white md:border-r-2  w-full md:h-full md:w-30">
+        <div class="fixed bottom-0 md:left-0 md:top-0 border-0 border-r-gray-300 bg-white md:bg-white md:border-r-2 w-full md:h-full md:w-30 z-40">
             <ul class="flex w-screen justify-between p-2 md:flex-col md:gap-5">
                 <div class="hidden md:block border-b border-gray-300 pb-2 mb-0 w-full">
                     <p class="hidden md:block text-text-primary font-bold">Mon tableau</p>
                 </div>
-                <li class="nav-item flex items-center flex-col md:flex-row md:gap-1.5">
+                <li class="nav-item w-fit flex items-center flex-col md:flex-row md:gap-1.5">
                     <a href="index.html"><img src="img/home.png" alt="" class="img w-5 h-5" id="nav-img-home" data-src-base="img/home.png" data-src-active="img/home-active.png"></a>
                     <a href="index.html" class="text-text-secondary text-xs rounded hover:text-user-icon " id="home-text">Accueil</a>
                 </li>
-                <li class="nav-item flex items-center flex-col md:flex-row md:gap-1.5">
+                <li class="nav-item w-fit flex items-center flex-col md:flex-row md:gap-1.5">
                     <img src="img/task-active.png" alt="" class="img w-5 h-5" id="nav-img-task" data-src-base="img/task.png" data-src-active="img/task-active.png">
                     <a href="#" class="text-xs rounded text-user-icon hover:text-user-icon" id="task-text">Tâches</a>
                 </li>
-                <li class="nav-item flex items-center flex-col md:flex-row md:gap-1.5">
+                <li class="nav-item w-fit flex items-center flex-col md:flex-row md:gap-1.5">
                     <img src="img/statistic.png" alt="" class="img w-5 h-5" id="nav-img-statistic" data-src-base="img/statistic.png" data-src-active="img/statistic-active.png">
                     <a href="#" class="text-text-secondary text-xs rounded hover:text-user-icon" id="statistic-text">Statistiques</a>
                 </li>
-                <li class="nav-item flex items-center flex-col md:flex-row md:gap-1.5">
+                <li class="nav-item w-fit flex items-center flex-col md:flex-row md:gap-1.5">
                     <img src="img/settings.png" alt="" class="img w-5 h-5" id="nav-img-settings" data-src-base="img/settings.png" data-src-active="img/settings-active.png">
                     <a href="#" class="text-text-secondary text-xs rounded hover:text-user-icon" id="settings-text">Paramètres</a>
                 </li>
             </ul>
         </div>
-        <div class="flex flex-row justify-between pb-4 mb-4 p-2 md:ml-32  border-b border-gray-300 md:border-none">
+        <div class="flex flex-row justify-between pb-4 mb-4 p-2 md:ml-32 border-b border-gray-300 md:border-none relative z-50">
             <p class="font-bold text-text-primary md:text-xs mt-1">Tâches</p>
-            <button class="bg-primary flex flex-row items-center gap-1 pl-2 pr-2 rounded-xs"><i class="fa-solid fa-plus " style="color: #FFFFFF;"></i><span class="hidden md:block lg:block text-text font-medium">Nouvelle Tâche</span></button>
+            <button class="bg-primary flex flex-row items-center gap-1 pl-2 pr-2 rounded-xs cursor-pointer" id="btnAddTask">
+                <i class="fa-solid fa-plus" style="color: #FFFFFF;"></i>
+                <span class="hidden md:block lg:block text-text font-medium">Nouvelle Tâche</span>
+            </button>
         </div>
     </header>
     <main>
-        <section class="">
-            <div>
-                <div class="relative m-3 bg-background rounded-lg">
-                    <i class="fa-solid fa-magnifying-glass absolute left-2 top-3.5" style="color: var(--color-text-secondary)"></i>
-                    <input type="text" class="w-full outline-none p-2 rounded-lg border-2 border-border-light placeholder-text-secondary" placeholder="      Rechercher une tâche...">
+        <section>
+            <div class="flex flex-col md:flex-row  justify-between gap-4 md:ml-28 lg:ml-32 p-3">
+
+                <!-- Search container: prend l'espace restant mais ne dépasse pas -->
+                <div class="relative flex-1 min-w-0 z-10">
+                    <!-- icône non-interactive -->
+                    <i class="fa-solid fa-magnifying-glass absolute left-3 top-1/2 -translate-y-1/2 pointer-events-none"
+                       style="color: var(--color-text-secondary)"></i>
+
+                    <!-- input : min-w-0 pour éviter l'overflow dans flex -->
+                    <input
+                            type="text"
+                            class="w-full pl-10 pr-3 py-2 rounded-lg border-2 border-border-light placeholder-text-secondary bg-background min-w-0"
+                            placeholder="Rechercher une tâche..." />
                 </div>
-                <div class="m-3 flex flex-row gap-4">
-                    <select name="" id="" class="bg-background p-2.5 rounded-lg">
-                        <option value="" disabled selected>Status</option>
+
+                <!-- Selects : pas de chevauchement, z-index au-dessus par sécurité -->
+                <div class="flex flex-row gap-4 z-20">
+                    <select class="bg-background p-2.5 rounded-lg z-20">
+                        <option disabled selected>Status</option>
                         <option value="todo">À faire</option>
                         <option value="inprogress">En cours</option>
                         <option value="done">Terminé</option>
                     </select>
-                    <select name="" id="" class="bg-background p-2.5 rounded-lg">
-                        <option value="" disabled selected>Date Fin</option>
-                        <option value="low">Prôche</option>
+
+                    <select class="bg-background p-2.5 rounded-lg z-20">
+                        <option disabled selected>Date Fin</option>
+                        <option value="low">Proche</option>
                         <option value="medium">Moyenne</option>
                         <option value="high">Lointain</option>
                     </select>
-                    <select name="" id="" class="bg-background p-2.5 rounded-lg">
-                        <option value="" disabled selected>Priorité</option>
+
+                    <select class="bg-background p-2.5 rounded-lg z-20">
+                        <option disabled selected>Priorité</option>
                         <option value="low">Basse</option>
                         <option value="medium">Moyenne</option>
                         <option value="high">Haute</option>
@@ -66,8 +82,12 @@
                 </div>
             </div>
         </section>
+        <section>
+            <div id="taskContainer" class="hidden absolute top-4 right-2 z-20 p-5 rounded-lg h-100 w-100 m-4">
 
+            </div>
+        </section>
     </main>
-
+    <script type="module" src="scripts.js" ></script>
 </body>
 </html>
