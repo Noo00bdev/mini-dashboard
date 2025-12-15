@@ -250,7 +250,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-
+    let selectedPriority = '';
     const priorityBtn = document.querySelectorAll('.btn-Priority');
 
     priorityBtn.forEach((btn) => {
@@ -268,8 +268,12 @@ document.addEventListener('DOMContentLoaded', () => {
             // Le bouton cliqué devient bleu
             btn.classList.remove('bg-white');
             btn.className = 'btn-Priority rounded-3xl text-text bg-primary p-4 flex-1 border-4 border-double border-white';
+            selectedPriority = btn.textContent.trim()
         });
     });
+
+
+    let selectedStatus = ''; // variable globale
 
     const statusBtn = document.querySelectorAll('.btn-status');
 
@@ -277,26 +281,27 @@ document.addEventListener('DOMContentLoaded', () => {
         btn.addEventListener('click', () => {
             // Tous les boutons redeviennent blancs
             statusBtn.forEach((b) => {
-                b.classList.remove('bg-primary/40');
-                b.classList.remove('border-white')
-                b.classList.remove('border-4')
-                b.classList.remove('border-double')
-                b.classList.remove('text-text')
-                b.classList.remove('font-bold')
+                b.classList.remove('bg-primary/40', 'border-white', 'border-4', 'border-double', 'text-text', 'font-bold');
                 b.classList.add('bg-white');
             });
 
             // Le bouton cliqué devient bleu
             btn.classList.remove('bg-white');
             btn.className = 'btn-Priority rounded-3xl text-text font-bold bg-primary/40 p-4 flex-1 border-4 border-double border-white';
+
+            // Mettre à jour la variable globale
+            selectedStatus = btn.textContent.trim();
+            console.log('Statut sélectionné :', selectedStatus); // vérification
         });
     });
+
 
     const taskAddBtn = document.querySelector('#taskAdd');
 
     if (taskAddBtn) {
         taskAddBtn.addEventListener('click', (e) => {
             e.preventDefault();
+
 
             const taskName = document.querySelector('#taskName');
             const taskDescription = document.querySelector('#taskDescription');
@@ -309,7 +314,8 @@ document.addEventListener('DOMContentLoaded', () => {
             const name = taskName.value.trim();
             const desc = taskDescription.value.trim();
 
-            if (!name || !desc) {
+
+            if (!name || !desc || !selectedStatus || !selectedPriority) {
                 alert('Veuillez remplir tous les champs');
                 return;
             }
@@ -326,7 +332,9 @@ document.addEventListener('DOMContentLoaded', () => {
             tasks.push({
                 id: Date.now(),
                 title: name,
-                description: desc
+                description: desc,
+                priority :selectedPriority|| 'Non defini',
+                status: selectedStatus || 'Non defini'
             });
 
             // Sauvegarder
@@ -354,12 +362,17 @@ document.addEventListener('DOMContentLoaded', () => {
                 div.className = 'bg-white p-4 rounded-xl mb-3 shadow-sm border border-gray-200';
 
                 div.innerHTML = `
-                <div class="flex justify-between items-start gap-4">
+                <div class="flex justify-between items-center gap-4">
                     <div class="flex-1 min-w-0">
-                        <h3 class="font-bold text-lg mb-2 text-text-primary">${task.title}</h3>
+                        <h3 class="font-bold text-lg mb-1 text-text-primary">${task.title}</h3>
                         <p class="text-gray-600">${task.description}</p>
+                        <div class="flex flex-1 gap-2">
+                            <p class="font-extrabold">Status : <span class="text-green-600 font-bold">${task.status}</span></p>
+                            <p class="font-extrabold">Priorité : <span class="text-primary font-bold">${task.priority}</span></p>
+                        </div>
+                        
                     </div>
-                    <button class="delete-task flex-shrink-0 text-red-500 hover:text-red-700 hover:bg-red-50 p-3 rounded-lg transition-colors" data-id="${task.id}">
+                    <button class="delete-task shrink-0 text-red-500 hover:text-red-700 hover:bg-red-50 p-3 rounded-lg transition-colors" data-id="${task.id}">
                         <i class="fa-solid fa-trash text-lg pointer-events-none"></i>
                     </button>
                 </div>
@@ -397,12 +410,16 @@ document.addEventListener('DOMContentLoaded', () => {
             newTasks.forEach(task => {
                 const div = document.createElement('div');
                 div.className = 'bg-white p-4 rounded-xl mb-3 shadow-sm border border-gray-200';
-
                 div.innerHTML = `
-                <div class="flex justify-between items-start gap-4">
+                <div class="flex justify-between items-center gap-4">
                     <div class="flex-1 min-w-0">
-                        <h3 class="font-bold text-lg mb-2 text-text-primary">${task.title}</h3>
+                        <h3 class="font-bold text-lg mb-1 text-text-primary">${task.title}</h3>
                         <p class="text-gray-600">${task.description}</p>
+                        <div class="flex flex-1 gap-2">
+                            <p class="text-green-600 font-bold">${task.status}</p>
+                            <p class="text-primary font-bold">${task.priority}</p>
+                        </div>
+                        
                     </div>
                     <button class="delete-task shrink-0 text-red-500 hover:text-red-700 hover:bg-red-50 p-3 rounded-lg transition-colors" data-id="${task.id}">
                         <i class="fa-solid fa-trash text-lg pointer-events-none"></i>
