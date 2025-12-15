@@ -41,13 +41,13 @@
                         <i class="fa-solid fa-trash text-lg pointer-events-none"></i>
                     </button>
                 </div>
-            `,L.appendChild(R)}),document.querySelectorAll(".delete-task").forEach(P=>{P.addEventListener("click",R=>{const D=parseInt(R.currentTarget.dataset.id);if(confirm("Supprimer cette tâche ?")){let O=JSON.parse(localStorage.getItem("tasks"));O=O.filter(A=>A.id!==D),localStorage.setItem("tasks",JSON.stringify(O)),window.location.reload()}})}))}const E=document.querySelector("#recTask");if(E){let M=localStorage.getItem("tasks");!M||M==="[]"||(M=JSON.parse(M),E.innerHTML="",M.slice(0,2).forEach(R=>{const D=document.createElement("div");D.className="bg-white p-4 rounded-xl mb-3 shadow-sm border border-gray-200",D.innerHTML=`
-                    <div class="flex justify-between items-start gap-4">
-                        <div class="flex-1 min-w-0">
-                            <h3 class="font-bold text-lg mb-2 text-text-primary">${R.title}</h3>
-                            <p class="text-gray-600">${R.description}</p>
-                        </div>
-                        <button class="delete-task shrink-0 text-red-500 hover:text-red-700 hover:bg-red-50 p-3 rounded-lg transition-colors" data-id="${R.id}">
-                            <i class="fa-solid fa-trash text-lg pointer-events-none"></i>
-                        </button>
-                    </div>`,E.appendChild(D)}))}});
+            `,L.appendChild(R)}),document.querySelectorAll(".delete-task").forEach(P=>{P.addEventListener("click",R=>{const D=parseInt(R.currentTarget.dataset.id);if(confirm("Supprimer cette tâche ?")){let O=JSON.parse(localStorage.getItem("tasks"));O=O.filter(A=>A.id!==D),localStorage.setItem("tasks",JSON.stringify(O)),window.location.reload()}})}))}const E=document.querySelector("#recTask");if(E){let M=localStorage.getItem("tasks");!M||M==="[]"?L.innerHTML='<p class="text-center text-gray-500 p-4">Aucune ancienne tâche.':(M=JSON.parse(M),E.innerHTML="",M.slice(0,2).forEach(R=>{const D=document.createElement("div");D.className="bg-white p-4 rounded-xl mb-3 shadow-sm border border-gray-200",D.innerHTML=`
+                <div class="flex justify-between items-start gap-4">
+                    <div class="flex-1 min-w-0">
+                        <h3 class="font-bold text-lg mb-2 text-text-primary">${R.title}</h3>
+                        <p class="text-gray-600">${R.description}</p>
+                    </div>
+                    <button class="delete-task shrink-0 text-red-500 hover:text-red-700 hover:bg-red-50 p-3 rounded-lg transition-colors" data-id="${R.id}">
+                        <i class="fa-solid fa-trash text-lg pointer-events-none"></i>
+                    </button>
+                </div>`,E.appendChild(D)}))}});
