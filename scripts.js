@@ -389,7 +389,7 @@ document.addEventListener('DOMContentLoaded', () => {
     if (recTasks) {
         let recTask = localStorage.getItem('tasks');
         if (!recTask || recTask === '[]') {
-            taskContainer.innerHTML = '<p class="text-center text-gray-500 p-4">Aucune ancienne tâche.';
+            recTasks.innerHTML = '<p class="text-center text-gray-500 p-4">Aucune ancienne tâche.</p>';
         }else{
             recTask = JSON.parse(recTask);
             recTasks.innerHTML = '';
