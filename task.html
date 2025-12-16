@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <title>Task</title>
-  <script type="module" crossorigin src="/mini-dashboard/assets/scripts-DGj13Ce_.js"></script>
+  <script type="module" crossorigin src="/mini-dashboard/assets/scripts-D3Jm3C-2.js"></script>
   <link rel="stylesheet" crossorigin href="/mini-dashboard/assets/scripts-B2nZWkL6.css">
 </head>
 <body class="bg-foreground w-full h-full relative m-0 p-0">
@@ -61,25 +61,25 @@
 
                 <!-- Selects -->
                 <div class="flex flex-row gap-4 relative z-20">
-                    <select class="bg-background p-2.5 rounded-lg">
-                        <option disabled selected>Status</option>
-                        <option value="todo">À faire</option>
-                        <option value="inprogress">En cours</option>
-                        <option value="done">Terminé</option>
+                    <select class="bg-background p-2.5 rounded-lg" id="statusSelect">
+                        <option value="" selected>Status</option>
+                        <option value="a faire">A faire</option>
+                        <option value="en cours">En cours</option>
                     </select>
 
-                    <select class="bg-background p-2.5 rounded-lg">
+
+                    <select class="bg-background p-2.5 rounded-lg" disabled>
                         <option disabled selected>Date Fin</option>
                         <option value="low">Proche</option>
                         <option value="medium">Moyenne</option>
                         <option value="high">Lointain</option>
                     </select>
 
-                    <select class="bg-background p-2.5 rounded-lg">
-                        <option disabled selected>Priorité</option>
-                        <option value="low">Basse</option>
-                        <option value="medium">Moyenne</option>
-                        <option value="high">Haute</option>
+                    <select class="bg-background p-2.5 rounded-lg" id="prioritySelect">
+                        <option value="" selected>Priorité</option>
+                        <option value="Petite">Petite</option>
+                        <option value="Moyenne">Moyenne</option>
+                        <option value="Haute">Haute</option>
                     </select>
                 </div>
             </div>
