@@ -451,7 +451,6 @@ document.addEventListener('DOMContentLoaded', () => {
         })
     }
     function afficheTasks(selectedTasks , priority) {
-        let key = selectedTasks.value.toLowerCase().trim();
 
         const task = localStorage.getItem('tasks');
         if (task) {
@@ -501,6 +500,50 @@ document.addEventListener('DOMContentLoaded', () => {
             });
         }
 
+    }
+    const searchTasks = document.querySelector('#task-search-input');
+    if (searchTasks) {
+        searchTasks.addEventListener('input', (e) => {
+            const tasks = localStorage.getItem('tasks');
+            let inputContent = searchTasks.value.toLowerCase().trim();
+
+            if (!tasks) {
+                return ;
+            }
+            let task = JSON.parse(tasks)
+            if (inputContent !== '') {
+                task = task.filter(t =>
+                    t.title.toLowerCase().includes(inputContent)
+                );
+            }
+            taskContainer.innerHTML = '';
+            task.forEach((task) => {
+                const div = document.createElement('div');
+                div.className = 'bg-white p-4 rounded-xl mb-3 shadow-sm border border-gray-200';
+
+                div.innerHTML = `
+                        <div class="flex justify-between items-center gap-4">
+                            <div class="flex-1 min-w-0">
+                                <h3 class="font-bold text-lg mb-1 text-text-primary">${task.title}</h3>
+                                <p class="text-gray-600">${task.description}</p>
+                                <div class="flex flex-1 gap-2">
+                                    <p class="font-extrabold">Status : 
+                                        <span class="text-green-600 font-bold">${task.status}</span>
+                                    </p>
+                                    <p class="font-extrabold">Priorité : 
+                                        <span class="text-primary font-bold">${task.priority}</span>
+                                    </p>
+                                </div>
+                            </div>
+                            <button class="delete-task shrink-0 text-red-500 hover:text-red-700 hover:bg-red-50 p-3 rounded-lg transition-colors" data-id="${task.id}">
+                                <i class="fa-solid fa-trash text-lg pointer-events-none"></i>
+                            </button>
+                        </div>
+                    `;
+
+                taskContainer.appendChild(div);
+            })
+        })
     }
 
 
