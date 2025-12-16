@@ -60,25 +60,25 @@
 
                 <!-- Selects -->
                 <div class="flex flex-row gap-4 relative z-20">
-                    <select class="bg-background p-2.5 rounded-lg">
-                        <option disabled selected>Status</option>
-                        <option value="todo">À faire</option>
-                        <option value="inprogress">En cours</option>
-                        <option value="done">Terminé</option>
+                    <select class="bg-background p-2.5 rounded-lg" id="statusSelect">
+                        <option value="" selected>Status</option>
+                        <option value="a faire">A faire</option>
+                        <option value="en cours">En cours</option>
                     </select>
 
-                    <select class="bg-background p-2.5 rounded-lg">
+
+                    <select class="bg-background p-2.5 rounded-lg" disabled>
                         <option disabled selected>Date Fin</option>
                         <option value="low">Proche</option>
                         <option value="medium">Moyenne</option>
                         <option value="high">Lointain</option>
                     </select>
 
-                    <select class="bg-background p-2.5 rounded-lg">
-                        <option disabled selected>Priorité</option>
-                        <option value="low">Basse</option>
-                        <option value="medium">Moyenne</option>
-                        <option value="high">Haute</option>
+                    <select class="bg-background p-2.5 rounded-lg" id="prioritySelect">
+                        <option value="" selected>Priorité</option>
+                        <option value="Petite">Petite</option>
+                        <option value="Moyenne">Moyenne</option>
+                        <option value="Haute">Haute</option>
                     </select>
                 </div>
             </div>

@@ -70,7 +70,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
-    // Graphique - vérifier que l'élément existe
+    // Graphique-vérifier que l'élément existe
     const ctx = document.getElementById('myChart');
 
     let myChart = null;
@@ -416,8 +416,8 @@ document.addEventListener('DOMContentLoaded', () => {
                         <h3 class="font-bold text-lg mb-1 text-text-primary">${task.title}</h3>
                         <p class="text-gray-600">${task.description}</p>
                         <div class="flex flex-1 gap-2">
-                            <p class="text-green-600 font-bold">${task.status}</p>
-                            <p class="text-primary font-bold">${task.priority}</p>
+                            <p class="font-extrabold">Status : <span class="text-green-600 font-bold">${task.status}</span></p>
+                            <p class="font-extrabold">Priorité : <span class="text-primary font-bold">${task.priority}</span></p>
                         </div>
                         
                     </div>
@@ -428,9 +428,81 @@ document.addEventListener('DOMContentLoaded', () => {
                 recTasks.appendChild(div);
             })
         }
+    }
+    const selectStatus = document.querySelector('#statusSelect');
+    if (selectStatus) {
 
+        selectStatus.addEventListener('change', (e) => {
+
+            let key = e.target.value.toLowerCase().trim();
+
+            const task = localStorage.getItem('tasks');
+            if (task) {
+                afficheTasks(selectStatus, selectPriority)
+            }
+
+        })
 
     }
+    const selectPriority = document.querySelector('#prioritySelect');
+    if (selectPriority) {
+        selectPriority.addEventListener('change', (e) => {
+            afficheTasks(selectStatus, selectPriority)
+        })
+    }
+    function afficheTasks(selectedTasks , priority) {
+        let key = selectedTasks.value.toLowerCase().trim();
+
+        const task = localStorage.getItem('tasks');
+        if (task) {
+            const statusKey = selectedTasks.value.toLowerCase().trim();
+            const priorityKey = priority.value.toLowerCase().trim();
+
+            const task = localStorage.getItem('tasks');
+            if (!task) return;
+
+            let tasks = JSON.parse(task);
+
+            if (statusKey !== "") {
+                tasks = tasks.filter(t => t.status.toLowerCase() === statusKey);
+            }
+
+            if (priorityKey !== "") {
+                tasks = tasks.filter(t => t.priority.toLowerCase() === priorityKey);
+            }
+
+            taskContainer.innerHTML = '';
+
+            tasks.forEach(task => {
+                const div = document.createElement('div');
+                div.className = 'bg-white p-4 rounded-xl mb-3 shadow-sm border border-gray-200';
+
+                div.innerHTML = `
+                        <div class="flex justify-between items-center gap-4">
+                            <div class="flex-1 min-w-0">
+                                <h3 class="font-bold text-lg mb-1 text-text-primary">${task.title}</h3>
+                                <p class="text-gray-600">${task.description}</p>
+                                <div class="flex flex-1 gap-2">
+                                    <p class="font-extrabold">Status : 
+                                        <span class="text-green-600 font-bold">${task.status}</span>
+                                    </p>
+                                    <p class="font-extrabold">Priorité : 
+                                        <span class="text-primary font-bold">${task.priority}</span>
+                                    </p>
+                                </div>
+                            </div>
+                            <button class="delete-task shrink-0 text-red-500 hover:text-red-700 hover:bg-red-50 p-3 rounded-lg transition-colors" data-id="${task.id}">
+                                <i class="fa-solid fa-trash text-lg pointer-events-none"></i>
+                            </button>
+                        </div>
+                    `;
+
+                taskContainer.appendChild(div);
+            });
+        }
+
+    }
+
 
 });
 
