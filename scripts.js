@@ -1,7 +1,14 @@
 import { Chart } from 'chart.js/auto';
+import {login} from "./connexion.js";
+import {signup} from "./connexion.js";
+import {loginForm} from "./connexion.js";
+import {SingnUp} from "./connexion.js";
 // Envelopper tout le code dans DOMContentLoaded
 document.addEventListener('DOMContentLoaded', () => {
-
+    const submit = document.getElementById('connexion')
+    const signUp = document.getElementById('signupBtn')
+    const SignUp = document.getElementById('SignUp')
+    const signIn = document.getElementById('signingBtn')
     const homeImg = document.getElementById('nav-img-home');
     const homeText = document.getElementById('home-text')
     const taskImg = document.getElementById('nav-img-task')
@@ -15,6 +22,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const addMonthBtn = document.getElementById('add-month-btn');
     const monthList = document.getElementById('values-container');
     const saveBtn = document.getElementById('save-btn');
+
 
     /**
      *
@@ -55,6 +63,22 @@ document.addEventListener('DOMContentLoaded', () => {
     active(taskImg, taskText, 'img/task-active.png', 'img/task.png')
     active(statImg, statText, 'img/statistic-active.png', 'img/statistic.png')
     active(settImg, settText, 'img/settings-active.png', 'img/settings.png')
+    if(submit){
+        submit.addEventListener('click', login);
+    }
+    if(signUp){
+        signUp.addEventListener('click', signup)
+    }
+    if(signIn){
+        signIn.addEventListener('click', loginForm)
+    }
+    // ✅ Ceci fonctionne même pour les éléments créés dynamiquement
+    document.addEventListener('click', (e) => {
+        if(e.target && e.target.id === 'SignUp'){
+            SingnUp(e);
+        }
+    });
+
 
     const navItems = document.querySelectorAll('.nav-item');
 

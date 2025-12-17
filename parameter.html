@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="src/input.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <title>Task</title>
+</head>
+<body class="bg-foreground w-full h-full relative m-0 p-0">
+<header class="">
+    <div class="fixed bottom-0 md:left-0 md:top-0
+            bg-background md:bg-background
+            border-t md:border-t-0 md:border-r-2 border-border-light
+            w-full md:w-[120px] h-16 md:h-full
+            z-40">
+
+        <ul class="flex w-full justify-between p-2 md:flex-col md:gap-5">
+            <div class="hidden md:block border-b border-gray-300 pb-2 mb-0 w-full">
+                <p class="hidden md:block text-text-primary font-bold">Mon tableau</p>
+            </div>
+            <li class="nav-item w-fit flex items-center flex-col md:flex-row md:gap-1.5">
+                <a href="main.html"><img src="img/home.png" alt="" class="img w-5 h-5" id="nav-img-home" data-src-base="img/home.png" data-src-active="img/home-active.png"></a>
+                <a href="main.html" class="text-text-secondary text-xs rounded hover:text-user-icon " id="home-text">Accueil</a>
+            </li>
+            <li class="nav-item w-fit flex items-center flex-col md:flex-row md:gap-1.5">
+                <img src="img/task.png" alt="" class="img w-5 h-5" id="nav-img-task" data-src-base="img/task.png" data-src-active="img/task-active.png">
+                <a href="task.html" class="text-xs text-text-secondary rounded  hover:text-user-icon" id="task-text">Tâches</a>
+            </li>
+            <li class="nav-item w-fit flex items-center flex-col md:flex-row md:gap-1.5">
+                <img src="img/statistic.png" alt="" class="img w-5 h-5" id="nav-img-statistic" data-src-base="img/statistic.png" data-src-active="img/statistic-active.png">
+                <a href="#" class="text-text-secondary text-xs rounded hover:text-user-icon" id="statistic-text">Statistiques</a>
+            </li>
+            <li class="nav-item w-fit flex items-center flex-col md:flex-row md:gap-1.5">
+                <img src="img/settings-active.png" alt="" class="img w-5 h-5" id="nav-img-settings" data-src-base="img/settings.png" data-src-active="img/settings-active.png">
+                <a href="#" class="text-user-icon text-xs rounded hover:text-user-icon" id="settings-text">Paramètres</a>
+            </li>
+        </ul>
+    </div>
+    <div class="flex flex-row justify-between pb-4 mb-4 p-2 md:ml-32 border-b border-gray-300 md:border-none relative z-50">
+        <p class="font-bold text-text-primary md:text-xs mt-1">Paramètre</p>
+    </div>
+</header>
+
+<script src="scripts.js" type="module"></script>
+</body>
+</html>

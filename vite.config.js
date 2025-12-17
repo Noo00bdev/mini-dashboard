@@ -10,9 +10,12 @@ export default defineConfig({
   build: {
     rollupOptions: {
       input: {
-        main: resolve(__dirname, 'index.html'),
+        index: resolve(__dirname, 'index.html'),
+        main: resolve(__dirname, 'main.html'),
         task: resolve(__dirname, 'task.html'),
         taskAddon: resolve(__dirname, 'addTask.html'),
+        statistic: resolve(__dirname, 'statistic.html'),
+        parameter: resolve(__dirname, 'parameter.html'),
       },
     },
   },
