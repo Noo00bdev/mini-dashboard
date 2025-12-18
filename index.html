@@ -14,10 +14,21 @@
             <p class="text-center">Connectez-vous à votre tableau de bord ou créer un compte</p>
         </section>
         <section class="mt-14 p-8 bg-foreground flex flex-col md:rounded-lg md:p-20 md:mt-4">
-            <div class="flex justify-around  gap-12 border-b border- pb-2">
-                <button class="btnlog hover:text-primary" id="signingBtn">Connexion</button>
-                <button id="signupBtn"  class=" btnlog hover:text-primary">Inscription</button>
+            <div  class="flex justify-around gap-12 border-b border-gray-300">
+                <button
+                        id="signingBtn"
+                        class="btnlog border-b-2 border-transparent -mb-px px-4 py-2 transition-colors hover:text-indigo-500"
+                >
+                    Connexion
+                </button>
+                <button
+                        id="signupBtn"
+                        class="btnlog border-b-2 border-transparent -mb-px px-4 py-2 transition-colors hover:text-indigo-500"
+                >
+                    Inscription
+                </button>
             </div>
+            <span id="errorMessage"></span>
             <form action=""  class="mt-8 flex flex-col gap-4" id="loginForm">
                 <label for="email">Email</label>
                 <input type="email" name="" id="email" placeholder="@  email@gmail.com..." class="border border-b-black rounded p-2">

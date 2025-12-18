@@ -3,6 +3,7 @@ import {login} from "./connexion.js";
 import {signup} from "./connexion.js";
 import {loginForm} from "./connexion.js";
 import {SingnUp} from "./connexion.js";
+
 // Envelopper tout le code dans DOMContentLoaded
 document.addEventListener('DOMContentLoaded', () => {
     const submit = document.getElementById('connexion')
@@ -22,6 +23,9 @@ document.addEventListener('DOMContentLoaded', () => {
     const addMonthBtn = document.getElementById('add-month-btn');
     const monthList = document.getElementById('values-container');
     const saveBtn = document.getElementById('save-btn');
+    const btnLogin = document.querySelectorAll('.btnlog');
+    const errorMessage = document.querySelector('#errorMessage');
+
 
 
     /**
@@ -66,18 +70,52 @@ document.addEventListener('DOMContentLoaded', () => {
     if(submit){
         submit.addEventListener('click', login);
     }
-    if(signUp){
-        signUp.addEventListener('click', signup)
-    }
-    if(signIn){
-        signIn.addEventListener('click', loginForm)
-    }
-    // ✅ Ceci fonctionne même pour les éléments créés dynamiquement
+
     document.addEventListener('click', (e) => {
         if(e.target && e.target.id === 'SignUp'){
             SingnUp(e);
         }
     });
+
+    if(signUp){
+
+        errorMessage.innerHTML = '';
+        signUp.addEventListener('click', signup)
+        signUp.addEventListener('click', () => {
+            if(btnLogin){
+                btnLogin.forEach((l) => {
+                    l.addEventListener('click', () => {
+                        btnLogin.forEach((b) => {
+                            b.classList.remove('text-user-icon', 'border-b-primary');
+                        })
+                        l.classList.add('text-user-icon' , 'border-b-primary');
+
+                    })
+
+                })
+            }
+        })
+    }
+    if(signIn){
+        errorMessage.innerHTML = '';
+        signIn.addEventListener('click', loginForm)
+        signIn.addEventListener('click', () => {
+            if(btnLogin){
+                btnLogin.forEach((l) => {
+                    l.addEventListener('click', () => {
+                        btnLogin.forEach((b) => {
+                            b.classList.remove('text-user-icon', 'border-b-primary');
+                        })
+                        l.classList.add('text-user-icon', 'border-b-primary');
+
+                    })
+
+                })
+            }
+        })
+    }
+    // ✅ Ceci fonctionne même pour les éléments créés dynamiquement
+
 
 
     const navItems = document.querySelectorAll('.nav-item');

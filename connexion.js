@@ -1,4 +1,4 @@
-
+const errorMessage = document.querySelector('#errorMessage');
 
 
 export function login(e){
@@ -25,6 +25,11 @@ export function login(e){
 
     if(matchingUser){
         window.location.href = 'main.html';
+        errorMessage.innerHTML = "";
+        errorMessage.className = ''
+    }else {
+        errorMessage.innerHTML = `Donnés mal saisie ou Utilisateur non inscrit`;
+        errorMessage.className = 'm-1 p-2 bg-error/70 ';
     }
 
 }
@@ -104,11 +109,19 @@ export function SingnUp(e){
     if(email.value.trim() === '' ||
         password.value.trim() === '' ||
         copassword.value.trim() === ''){
+        email.style.border = '1px solid red';
+        password.style.border = '1px solid red';
+        copassword.style.border = '1px solid red';
+
         return;
     }
 
     // passwords identiques ?
     if(password.value.trim() !== copassword.value.trim()){
+        errorMessage.innerHTML = "Mot de passe different";
+        errorMessage.className = 'm-1 p-2 bg-error/70 ';
+        password.style.border = '1px solid red';
+        copassword.style.border = '1px solid red';
         return;
     }
 
@@ -118,7 +131,8 @@ export function SingnUp(e){
     );
 
     if(exists){
-
+        errorMessage.innerHTML = "Cet utilisateur existe deja viellez vous connecter";
+        errorMessage.className = 'm-1 p-2 bg-error/70 ';
         return; // à toi d'afficher une erreur si tu veux
     }
 
