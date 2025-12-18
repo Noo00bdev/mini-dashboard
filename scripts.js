@@ -77,44 +77,28 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
-    if(signUp){
 
-        errorMessage.innerHTML = '';
-        signUp.addEventListener('click', signup)
-        signUp.addEventListener('click', () => {
-            if(btnLogin){
-                btnLogin.forEach((l) => {
-                    l.addEventListener('click', () => {
-                        btnLogin.forEach((b) => {
-                            b.classList.remove('text-user-icon', 'border-b-primary');
-                        })
-                        l.classList.add('text-user-icon' , 'border-b-primary');
-
-                    })
-
+    if(btnLogin){
+        btnLogin.forEach((l) => {
+            l.addEventListener('click', () => {
+                btnLogin.forEach((b) => {
+                    b.classList.remove('text-user-icon', 'border-b-primary');
                 })
-            }
+                l.classList.add('text-user-icon', 'border-b-primary');
+            })
         })
     }
+
+    if(signUp){
+        errorMessage.innerHTML = '';
+        signUp.addEventListener('click', signup);
+    }
+
     if(signIn){
         errorMessage.innerHTML = '';
-        signIn.addEventListener('click', loginForm)
-        signIn.addEventListener('click', () => {
-            if(btnLogin){
-                btnLogin.forEach((l) => {
-                    l.addEventListener('click', () => {
-                        btnLogin.forEach((b) => {
-                            b.classList.remove('text-user-icon', 'border-b-primary');
-                        })
-                        l.classList.add('text-user-icon', 'border-b-primary');
-
-                    })
-
-                })
-            }
-        })
+        signIn.classList.add('text-user-icon', 'border-b-primary');
+        signIn.addEventListener('click', loginForm);
     }
-    // ✅ Ceci fonctionne même pour les éléments créés dynamiquement
 
 
 
