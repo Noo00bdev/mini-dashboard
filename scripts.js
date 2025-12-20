@@ -1,72 +1,21 @@
 import { Chart } from 'chart.js/auto';
 import {login} from "./connexion.js";
-import {signup} from "./connexion.js";
-import {loginForm} from "./connexion.js";
 import {SingnUp} from "./connexion.js";
+import {isActive} from "./function.js";
+import {changeState} from "./function.js";
 
-// Envelopper tout le code dans DOMContentLoaded
 document.addEventListener('DOMContentLoaded', () => {
     const submit = document.getElementById('connexion')
     const signUp = document.getElementById('signupBtn')
-    const SignUp = document.getElementById('SignUp')
     const signIn = document.getElementById('signingBtn')
-    const homeImg = document.getElementById('nav-img-home');
-    const homeText = document.getElementById('home-text')
-    const taskImg = document.getElementById('nav-img-task')
-    const taskText = document.getElementById('task-text')
-    const statImg = document.getElementById('nav-img-statistic')
-    const statText = document.getElementById('statistic-text')
-    const settImg = document.getElementById('nav-img-settings')
-    const settText = document.getElementById('settings-text')
     const modify = document.getElementById('modify');
     const modifyForm = document.getElementById('modify-form');
     const addMonthBtn = document.getElementById('add-month-btn');
     const monthList = document.getElementById('values-container');
     const saveBtn = document.getElementById('save-btn');
     const btnLogin = document.querySelectorAll('.btnlog');
-    const errorMessage = document.querySelector('#errorMessage');
+    const errorMessage = document.querySelector('#errorMessage')
 
-
-
-    /**
-     *
-     * @param {HTMLElement} element
-     * @param {HTMLElement} text
-     * @param {String} paths1
-     * @param {String} paths2
-     */
-    function active(element, text, paths1, paths2){
-        if (element) {
-            const ACTIVE_SRC = paths1;
-            const INACTIVE_SRC = paths2;
-            element.addEventListener('click', () => {
-                const current = element.getAttribute('src') || '';
-                const next = current === ACTIVE_SRC ? INACTIVE_SRC : ACTIVE_SRC;
-                element.setAttribute('src', next);
-                const links = document.querySelectorAll('a');
-
-                links.forEach(link => {
-                    links.forEach(l => l.classList.remove('text-user-icon'));
-                });
-                text.classList.add('text-user-icon')
-            });
-        } else {
-            console.warn("Element not found.");
-        }
-
-        const links = document.querySelectorAll('a');
-        links.forEach(link => {
-            link.addEventListener('click', () => {
-                links.forEach(l => l.classList.remove('text-user-icon'));
-                link.classList.add('text-user-icon');
-            });
-        });
-    }
-
-    active(homeImg, homeText, 'img/home-active.png', 'img/home.png')
-    active(taskImg, taskText, 'img/task-active.png', 'img/task.png')
-    active(statImg, statText, 'img/statistic-active.png', 'img/statistic.png')
-    active(settImg, settText, 'img/settings-active.png', 'img/settings.png')
     if(submit){
         submit.addEventListener('click', login);
     }
@@ -77,44 +26,18 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
-
-    if(btnLogin){
-        btnLogin.forEach((l) => {
-            l.addEventListener('click', () => {
-                btnLogin.forEach((b) => {
-                    b.classList.remove('text-user-icon', 'border-b-primary');
-                })
-                l.classList.add('text-user-icon', 'border-b-primary');
-            })
-        })
+    if (btnLogin && btnLogin.length > 0) {
+        btnLogin[0].classList.add('text-user-icon', 'border-b-primary');
+        isActive(btnLogin, 'text-user-icon', 'border-b-primary');
     }
 
     if(signUp){
-        errorMessage.innerHTML = '';
-        signUp.addEventListener('click', signup);
+        changeState(signUp, errorMessage)
     }
-
     if(signIn){
-        errorMessage.innerHTML = '';
-        signIn.classList.add('text-user-icon', 'border-b-primary');
-        signIn.addEventListener('click', loginForm);
+        changeState(signIn, errorMessage)
     }
 
-
-
-    const navItems = document.querySelectorAll('.nav-item');
-
-    navItems.forEach(item => {
-        item.addEventListener('click', () => {
-            navItems.forEach(i => {
-                const img = i.querySelector('img');
-                if (img) img.setAttribute('src', img.dataset.srcBase);
-            });
-
-            const imgClicked = item.querySelector('img');
-            if (imgClicked) imgClicked.setAttribute('src', imgClicked.dataset.srcActive);
-        });
-    });
 
     // Graphique-vérifier que l'élément existe
     const ctx = document.getElementById('myChart');
@@ -271,7 +194,6 @@ document.addEventListener('DOMContentLoaded', () => {
         container.textContent = `${moy} €`;
     }
 
-    // Initialiser les statistiques si le graphique existe
     if (myChart) {
         DynamiqueVentes();
         BestSale();
@@ -279,7 +201,7 @@ document.addEventListener('DOMContentLoaded', () => {
         MoyenneVentes();
     }
 
-    // GESTION DES TÂCHES
+
     const taskBtn = document.querySelector('#btnAddTask');
     if (taskBtn) {
         taskBtn.addEventListener('click', (e) => {
@@ -427,7 +349,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 taskContainer.appendChild(div);
             });
 
-            // Ajouter les événements de suppression
+
             document.querySelectorAll('.delete-task').forEach(btn => {
                 btn.addEventListener('click', (e) => {
                     const taskId = parseInt(e.currentTarget.dataset.id);

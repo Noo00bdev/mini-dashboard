@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="src/input.css">
+    <script src="https://kit.fontawesome.com/41b72b8ae0.js" crossorigin="anonymous"></script>
     <title>Dashboard</title>
 </head>
 <body class="bg-background w-full h-full relative m-0 p-0">
@@ -19,20 +20,20 @@
                     <p class="hidden md:block text-text-primary font-bold">Mon tableau</p>
                 </div>
                 <li class="nav-item w-fit flex items-center flex-col md:flex-row md:gap-1.5">
-                    <a href="main.html"><img src="img/home-active.png" alt="" class="img w-5 h-5" id="nav-img-home" data-src-base="img/home.png" data-src-active="img/home-active.png"></a>
-                    <a href="#" class=" text-xs text-user-icon  rounded hover:text-user-icon " id="home-text">Accueil</a>
+                    <a href="#"><i class="fa-solid fa-house text-us text-primary"></i></a>
+                    <a href="#" class="btnNav text-xs text-user-icon  rounded hover:text-user-icon " id="home-text">Accueil</a>
                 </li>
                 <li class="nav-item w-fit flex items-center flex-col md:flex-row md:gap-1.5">
-                    <img src="img/task.png" alt="" class="img w-5 h-5" id="nav-img-task" data-src-base="img/task.png" data-src-active="img/task-active.png">
-                    <a href="task.html" class="text-xs text-text-secondary rounded hover:text-user-icon" id="task-text">Tâches</a>
+                    <a href="task.html"><i class="fa-solid fa-square-check"></i></a>
+                    <a href="task.html" class="btnNav text-xs text-text-secondary rounded hover:text-user-icon" id="task-text">Tâches</a>
                 </li>
                 <li class="nav-item w-fit flex items-center flex-col md:flex-row md:gap-1.5">
-                    <img src="img/statistic.png" alt="" class="img w-5 h-5" id="nav-img-statistic" data-src-base="img/statistic.png" data-src-active="img/statistic-active.png">
-                    <a href="statistic.html" class="text-text-secondary text-xs rounded hover:text-user-icon" id="statistic-text">Statistiques</a>
+                    <a href="statistic.html"><i class="fa-solid fa-chart-column"></i></a>
+                    <a href="statistic.html" class="btnNav text-text-secondary text-xs rounded hover:text-user-icon" id="statistic-text">Statistiques</a>
                 </li>
                 <li class="nav-item w-fit flex items-center flex-col md:flex-row md:gap-1.5">
-                    <img src="img/settings.png" alt="" class="img w-5 h-5" id="nav-img-settings" data-src-base="img/settings.png" data-src-active="img/settings-active.png">
-                    <a href="parameter.html" class="text-text-secondary text-xs rounded hover:text-user-icon" id="settings-text">Paramètres</a>
+                    <a href="parameter.html"><i class="fa-solid fa-gear"></i></a>
+                    <a href="parameter.html" class="btnNav text-text-secondary text-xs rounded hover:text-user-icon" id="settings-text">Paramètres</a>
                 </li>
             </ul>
         </div>
@@ -113,7 +114,7 @@
     </main>
 
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <script type="module" src="scripts.js"></script>
+    <script type="module" src="/scripts.js"></script>
 
 </body>
 

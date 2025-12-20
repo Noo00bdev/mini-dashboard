@@ -1,3 +1,10 @@
+
+import {isSame} from "./function.js";
+import {isAccountExists} from "./function.js";
+import {emailExists} from "./function.js";
+import {areEquals} from "./function.js";
+import {canSignUp} from "./function.js";
+
 const errorMessage = document.querySelector('#errorMessage');
 
 
@@ -5,7 +12,7 @@ export function login(e){
     e.preventDefault();
     const email = document.querySelector('#email');
     const password = document.querySelector('#password');
-    if (email.value.trim() ==='' && password.value.trim() === '') {
+    if (isSame(email.value.trim(), password.value.trim())) {
         email.style.border = '1px solid red';
         password.style.border = '1px solid red';
         return;
@@ -18,12 +25,8 @@ export function login(e){
 
     const users = JSON.parse(localStorage.getItem('user')) || [];
 
-    const matchingUser = users.find(u =>
-        u.email.trim() === emailVal &&
-        u.password.trim() === passwordVal
-    );
 
-    if(matchingUser){
+    if(isAccountExists(users, emailVal, passwordVal)) {
         window.location.href = 'main.html';
         errorMessage.innerHTML = "";
         errorMessage.className = ''
@@ -33,8 +36,8 @@ export function login(e){
     }
 
 }
-export function loginForm(e){
-    e.preventDefault();
+export function loginForm(){
+
     const form = document.querySelector('#loginForm');
     form.innerHTML = '';
     form.innerHTML = `<label for="email">Email</label>
@@ -61,8 +64,8 @@ export function loginForm(e){
 
 }
 
-export function signup(e){
-    e.preventDefault();
+export function signup(){
+
     const form = document.querySelector('#loginForm');
     form.innerHTML = '';
     form.innerHTML =
@@ -105,19 +108,19 @@ export function SingnUp(e){
     const password = document.querySelector('#password');
     const copassword = document.querySelector('#Copassword');
 
+
+
+
     // validation simple
-    if(email.value.trim() === '' ||
-        password.value.trim() === '' ||
-        copassword.value.trim() === ''){
+    if(canSignUp(email.value.trim(), password.value.trim(), copassword.value.trim())) {
         email.style.border = '1px solid red';
         password.style.border = '1px solid red';
         copassword.style.border = '1px solid red';
-
         return;
     }
 
     // passwords identiques ?
-    if(password.value.trim() !== copassword.value.trim()){
+    if(areEquals(password, copassword)){
         errorMessage.innerHTML = "Mot de passe different";
         errorMessage.className = 'm-1 p-2 bg-error/70 ';
         password.style.border = '1px solid red';
@@ -125,10 +128,9 @@ export function SingnUp(e){
         return;
     }
 
+
     // email existe déjà ?
-    const exists = users.find(u =>
-        u.email.trim().toLowerCase() === email.value.trim().toLowerCase()
-    );
+    const exists = emailExists(users)
 
     if(exists){
         errorMessage.innerHTML = "Cet utilisateur existe deja viellez vous connecter";
@@ -149,5 +151,7 @@ export function SingnUp(e){
     // go main
     window.location.href = 'main.html';
 }
+
+
 
 
