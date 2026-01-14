@@ -93,15 +93,13 @@ export function isActive(element, style1, style2){
  * @param message {HTMLElement}
  */
 export function changeState(element, message){
-
+    if (!element)return
     element.addEventListener('click', ()=>{
         element.classList.add('text-user-icon', 'border-b-primary');
         if(message){
             clearContent(message)
             resetClass(message)
         }
-
-        loginForm()
     } );
 }
 

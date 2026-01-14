@@ -4,6 +4,7 @@ import {SingnUp} from "./connexion.js";
 import {isActive} from "./function.js";
 import {changeState} from "./function.js";
 import {signup} from "./connexion.js";
+import {loginForm} from "./connexion.js";
 
 document.addEventListener('DOMContentLoaded', () => {
     const submit = document.getElementById('connexion')
@@ -33,10 +34,16 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     if(signUp){
-        changeState(signup, errorMessage)
+        changeState(signUp, errorMessage)
+        signUp.addEventListener('click', () => {
+            signup()
+        })
     }
     if(signIn){
         changeState(signIn, errorMessage)
+        signIn.addEventListener('click', () => {
+            loginForm()
+        })
     }
 
 
