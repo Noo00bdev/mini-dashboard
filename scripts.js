@@ -3,6 +3,7 @@ import {login} from "./connexion.js";
 import {SingnUp} from "./connexion.js";
 import {isActive} from "./function.js";
 import {changeState} from "./function.js";
+import {signup} from "./connexion.js";
 
 document.addEventListener('DOMContentLoaded', () => {
     const submit = document.getElementById('connexion')
@@ -32,7 +33,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     if(signUp){
-        changeState(signUp, errorMessage)
+        changeState(signup, errorMessage)
     }
     if(signIn){
         changeState(signIn, errorMessage)
@@ -513,7 +514,5 @@ document.addEventListener('DOMContentLoaded', () => {
             })
         })
     }
-
-
 });
 
