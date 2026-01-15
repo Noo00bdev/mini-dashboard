@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="src/input.css">
+    <script src="https://kit.fontawesome.com/41b72b8ae0.js" crossorigin="anonymous"></script>
+    <title>Task</title>
+</head>
+<body class="bg-foreground w-full h-full relative m-0 p-0">
+<header class="">
+    <div class="fixed bottom-0 md:left-0 md:top-0
+            bg-foreground md:bg-background
+            border-t md:border-t-0 md:border-r-2
+            border-border-light
+            w-full md:w-[120px] h-16 md:h-full
+            z-40">
+        <ul class="flex w-full justify-between p-2 md:flex-col md:gap-5">
+            <div class="hidden md:block border-b border-gray-300 pb-2 mb-0 w-full">
+                <p class="hidden md:block text-text-primary font-bold">Mon tableau</p>
+            </div>
+            <li class="nav-item w-fit flex items-center flex-col md:flex-row md:gap-1.5">
+                <a href="main.html"><i class="fa-solid fa-house text-us "></i></a>
+                <a href="main.html" class="btnNav text-xs text-text-secondary  rounded hover:text-user-icon " id="home-text">Accueil</a>
+            </li>
+            <li class="nav-item w-fit flex items-center flex-col md:flex-row md:gap-1.5">
+                <a href="task.html"><i class="fa-solid fa-square-check"></i></a>
+                <a href="task.html" class="btnNav text-xs text-text-secondary rounded hover:text-user-icon" id="task-text">Tâches</a>
+            </li>
+            <li class="nav-item w-fit flex items-center flex-col md:flex-row md:gap-1.5">
+                <a href="statistic.html"><i class="fa-solid fa-chart-column"></i></a>
+                <a href="statistic.html" class="btnNav text-text-secondary text-xs rounded hover:text-user-icon" id="statistic-text">Statistiques</a>
+            </li>
+            <li class="nav-item w-fit flex items-center flex-col md:flex-row md:gap-1.5">
+                <a href="#"><i class="fa-solid fa-gear text-primary"></i></a>
+                <a href="#" class="btnNav text-primary text-xs rounded hover:text-user-icon" id="settings-text">Paramètres</a>
+            </li>
+        </ul>
+    </div>
+    <div class="flex flex-row justify-between pb-4 mb-4 p-2 md:ml-32 border-b border-gray-300 md:border-none relative z-50">
+        <p class="font-bold text-text-primary md:text-xs mt-1">Paramètre</p>
+    </div>
+</header>
+
+<script src="/scripts.js" type="module"></script>
+</body>
+</html>

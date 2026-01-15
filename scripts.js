@@ -1,76 +1,53 @@
 import { Chart } from 'chart.js/auto';
+import {login} from "./connexion.js";
+import {SingnUp} from "./connexion.js";
+import {isActive} from "./function.js";
+import {changeState} from "./function.js";
+import {signup} from "./connexion.js";
+import {loginForm} from "./connexion.js";
 
-// Envelopper tout le code dans DOMContentLoaded
 document.addEventListener('DOMContentLoaded', () => {
-    const homeImg = document.getElementById('nav-img-home');
-    const homeText = document.getElementById('home-text')
-    const taskImg = document.getElementById('nav-img-task')
-    const taskText = document.getElementById('task-text')
-    const statImg = document.getElementById('nav-img-statistic')
-    const statText = document.getElementById('statistic-text')
-    const settImg = document.getElementById('nav-img-settings')
-    const settText = document.getElementById('settings-text')
+    const submit = document.getElementById('connexion')
+    const signUp = document.getElementById('signupBtn')
+    const signIn = document.getElementById('signingBtn')
     const modify = document.getElementById('modify');
     const modifyForm = document.getElementById('modify-form');
     const addMonthBtn = document.getElementById('add-month-btn');
     const monthList = document.getElementById('values-container');
     const saveBtn = document.getElementById('save-btn');
+    const btnLogin = document.querySelectorAll('.btnlog');
+    const errorMessage = document.querySelector('#errorMessage')
 
-    /**
-     *
-     * @param {HTMLElement} element
-     * @param {HTMLElement} text
-     * @param {String} paths1
-     * @param {String} paths2
-     */
-    function active(element, text, paths1, paths2){
-        if (element) {
-            const ACTIVE_SRC = paths1;
-            const INACTIVE_SRC = paths2;
-            element.addEventListener('click', () => {
-                const current = element.getAttribute('src') || '';
-                const next = current === ACTIVE_SRC ? INACTIVE_SRC : ACTIVE_SRC;
-                element.setAttribute('src', next);
-                const links = document.querySelectorAll('a');
-
-                links.forEach(link => {
-                    links.forEach(l => l.classList.remove('text-user-icon'));
-                });
-                text.classList.add('text-user-icon')
-            });
-        } else {
-            console.warn("Element not found.");
-        }
-
-        const links = document.querySelectorAll('a');
-        links.forEach(link => {
-            link.addEventListener('click', () => {
-                links.forEach(l => l.classList.remove('text-user-icon'));
-                link.classList.add('text-user-icon');
-            });
-        });
+    if(submit){
+        submit.addEventListener('click', login);
     }
 
-    active(homeImg, homeText, 'img/home-active.png', 'img/home.png')
-    active(taskImg, taskText, 'img/task-active.png', 'img/task.png')
-    active(statImg, statText, 'img/statistic-active.png', 'img/statistic.png')
-    active(settImg, settText, 'img/settings-active.png', 'img/settings.png')
-
-    const navItems = document.querySelectorAll('.nav-item');
-
-    navItems.forEach(item => {
-        item.addEventListener('click', () => {
-            navItems.forEach(i => {
-                const img = i.querySelector('img');
-                if (img) img.setAttribute('src', img.dataset.srcBase);
-            });
-
-            const imgClicked = item.querySelector('img');
-            if (imgClicked) imgClicked.setAttribute('src', imgClicked.dataset.srcActive);
-        });
+    document.addEventListener('click', (e) => {
+        if(e.target && e.target.id === 'SignUp'){
+            SingnUp(e);
+        }
     });
 
-    // Graphique - vérifier que l'élément existe
+    if (btnLogin && btnLogin.length > 0) {
+        btnLogin[0].classList.add('text-user-icon', 'border-b-primary');
+        isActive(btnLogin, 'text-user-icon', 'border-b-primary');
+    }
+
+    if(signUp){
+        changeState(signUp, errorMessage)
+        signUp.addEventListener('click', () => {
+            signup()
+        })
+    }
+    if(signIn){
+        changeState(signIn, errorMessage)
+        signIn.addEventListener('click', () => {
+            loginForm()
+        })
+    }
+
+
+    // Graphique-vérifier que l'élément existe
     const ctx = document.getElementById('myChart');
 
     let myChart = null;
@@ -225,7 +202,6 @@ document.addEventListener('DOMContentLoaded', () => {
         container.textContent = `${moy} €`;
     }
 
-    // Initialiser les statistiques si le graphique existe
     if (myChart) {
         DynamiqueVentes();
         BestSale();
@@ -233,64 +209,317 @@ document.addEventListener('DOMContentLoaded', () => {
         MoyenneVentes();
     }
 
-    // GESTION DES TÂCHES
-    const taskBtn = document.querySelector('#btnAddTask');
 
+    const taskBtn = document.querySelector('#btnAddTask');
     if (taskBtn) {
         taskBtn.addEventListener('click', (e) => {
             e.preventDefault();
-            console.log('Bouton Nouvelle Tâche cliqué !');
+            window.location.href = 'addTask.html';
+        })
+    }
+    const taskCancelBtn = document.getElementById('taskCancel');
 
-            const container = document.getElementById('taskContainer');
-            container.classList.remove('hidden');
-            if (!container) {
-                console.error('taskContainer introuvable');
+    if (taskCancelBtn) {
+        taskCancelBtn.addEventListener('click', (e) => {
+            e.preventDefault();
+            window.location.href = 'task.html';
+        });
+    }
+
+    let selectedPriority = '';
+    const priorityBtn = document.querySelectorAll('.btn-Priority');
+
+    priorityBtn.forEach((btn) => {
+        btn.addEventListener('click', () => {
+            // Tous les boutons redeviennent blancs
+            priorityBtn.forEach((b) => {
+                b.classList.remove('bg-primary');
+                b.classList.remove('border-white')
+                b.classList.remove('border-4')
+                b.classList.remove('border-double')
+                b.classList.remove('text-text')
+                b.classList.add('bg-white');
+            });
+
+            // Le bouton cliqué devient bleu
+            btn.classList.remove('bg-white');
+            btn.className = 'btn-Priority rounded-3xl text-text bg-primary p-4 flex-1 border-4 border-double border-white';
+            selectedPriority = btn.textContent.trim()
+        });
+    });
+
+
+    let selectedStatus = ''; // variable globale
+
+    const statusBtn = document.querySelectorAll('.btn-status');
+
+    statusBtn.forEach((btn) => {
+        btn.addEventListener('click', () => {
+            // Tous les boutons redeviennent blancs
+            statusBtn.forEach((b) => {
+                b.classList.remove('bg-primary/40', 'border-white', 'border-4', 'border-double', 'text-text', 'font-bold');
+                b.classList.add('bg-white');
+            });
+
+            // Le bouton cliqué devient bleu
+            btn.classList.remove('bg-white');
+            btn.className = 'btn-Priority rounded-3xl text-text font-bold bg-primary/40 p-4 flex-1 border-4 border-double border-white';
+
+            // Mettre à jour la variable globale
+            selectedStatus = btn.textContent.trim();
+            console.log('Statut sélectionné :', selectedStatus); // vérification
+        });
+    });
+
+
+    const taskAddBtn = document.querySelector('#taskAdd');
+
+    if (taskAddBtn) {
+        taskAddBtn.addEventListener('click', (e) => {
+            e.preventDefault();
+
+
+            const taskName = document.querySelector('#taskName');
+            const taskDescription = document.querySelector('#taskDescription');
+
+            if (!taskName || !taskDescription) {
+                alert('Erreur: champs introuvables');
                 return;
             }
 
-            const div = document.createElement('div');
-            div.className = 'flex flex-col gap-2 p-4 border-none rounded-lg bg-white shadow-md w-fit ml-28 lg:ml-32 mt-4 relative';
+            const name = taskName.value.trim();
+            const desc = taskDescription.value.trim();
 
-            // Bouton fermer
-            let btnClose = document.createElement('button');
-            btnClose.textContent = '✕';
-            btnClose.className = 'absolute top-2 right-2 text-gray-500 hover:text-gray-700 font-bold text-xl w-8 h-8 flex items-center justify-center';
 
-            // Titre
-            let title = document.createElement('h2');
-            title.textContent = 'Ajout de Tâches';
-            title.className = 'font-bold text-lg mt-6';
+            if (!name || !desc || !selectedStatus || !selectedPriority) {
+                alert('Veuillez remplir tous les champs');
+                return;
+            }
 
-            // Input titre
-            let taskTitle = document.createElement('input');
-            taskTitle.type = 'text';
-            taskTitle.placeholder = "Titre de la tâche";
-            taskTitle.className = "border p-2 rounded w-full focus:outline-none border-gray-300 bg-white shadow-sm";
+            // Récupérer les tâches existantes
+            let tasks = localStorage.getItem('tasks');
+            if (!tasks) {
+                tasks = [];
+            } else {
+                tasks = JSON.parse(tasks);
+            }
 
-            // Textarea description
-            let description = document.createElement('textarea');
-            description.placeholder = "Description de la tâche";
-            description.className = "p-2 rounded w-full h-20 resize-none focus:outline-none border border-gray-300 bg-white shadow-sm";
+            // Ajouter la nouvelle tâche
+            tasks.push({
+                id: Date.now(),
+                title: name,
+                description: desc,
+                priority :selectedPriority|| 'Non defini',
+                status: selectedStatus || 'Non defini'
+            });
 
-            // Ajouter les éléments au div
-            div.appendChild(btnClose);
-            div.appendChild(title);
-            div.appendChild(taskTitle);
-            div.appendChild(description);
+            // Sauvegarder
+            localStorage.setItem('tasks', JSON.stringify(tasks));
 
-            // Ajouter le div au container
-            container.appendChild(div);
-
-            // Event listener pour fermer (directement sur le bouton créé)
-            btnClose.addEventListener('click', (e) => {
-                e.preventDefault();
-                div.remove();
-                container.classList.add('hidden')// Supprime complètement le div
-                console.log('Tâche fermée !');
-            })
+            // Rediriger
+            window.location.href = "task.html";
         });
-    } else {
-        console.error('Bouton #btnAddTask introuvable');
     }
 
+// Afficher les tâches sur task.html
+    const taskContainer = document.getElementById('taskAddContainer');
+    if (taskContainer) {
+        // Récupérer les tâches
+        let tasks = localStorage.getItem('tasks');
+
+        if (!tasks || tasks === '[]') {
+            taskContainer.innerHTML = '<p class="text-center text-gray-500 p-4">Aucune tâche. Cliquez sur "Nouvelle Tâche" pour commencer.</p>';
+        } else {
+            tasks = JSON.parse(tasks);
+            taskContainer.innerHTML = '';
+
+            tasks.forEach(task => {
+                const div = document.createElement('div');
+                div.className = 'bg-white p-4 rounded-xl mb-3 shadow-sm border border-gray-200';
+
+                div.innerHTML = `
+                <div class="flex justify-between items-center gap-4">
+                    <div class="flex-1 min-w-0">
+                        <h3 class="font-bold text-lg mb-1 text-text-primary">${task.title}</h3>
+                        <p class="text-gray-600">${task.description}</p>
+                        <div class="flex flex-1 gap-2">
+                            <p class="font-extrabold">Status : <span class="text-green-600 font-bold">${task.status}</span></p>
+                            <p class="font-extrabold">Priorité : <span class="text-primary font-bold">${task.priority}</span></p>
+                        </div>
+                        
+                    </div>
+                    <button class="delete-task shrink-0 text-red-500 hover:text-red-700 hover:bg-red-50 p-3 rounded-lg transition-colors" data-id="${task.id}">
+                        <i class="fa-solid fa-trash text-lg pointer-events-none"></i>
+                    </button>
+                </div>
+            `;
+
+                taskContainer.appendChild(div);
+            });
+
+
+            document.querySelectorAll('.delete-task').forEach(btn => {
+                btn.addEventListener('click', (e) => {
+                    const taskId = parseInt(e.currentTarget.dataset.id);
+
+                    if (confirm('Supprimer cette tâche ?')) {
+                        let tasks = JSON.parse(localStorage.getItem('tasks'));
+                        tasks = tasks.filter(t => t.id !== taskId);
+                        localStorage.setItem('tasks', JSON.stringify(tasks));
+
+                        // Recharger la page
+                        window.location.reload();
+                    }
+                });
+            });
+        }
+    }
+    const recTasks = document.querySelector('#recTask');
+    if (recTasks) {
+        let recTask = localStorage.getItem('tasks');
+        if (!recTask || recTask === '[]') {
+            recTasks.innerHTML = '<p class="text-center text-gray-500 p-4">Aucune ancienne tâche.</p>';
+        }else{
+            recTask = JSON.parse(recTask);
+            recTasks.innerHTML = '';
+            const newTasks = recTask.slice(0,2)
+            newTasks.forEach(task => {
+                const div = document.createElement('div');
+                div.className = 'bg-white p-4 rounded-xl mb-3 shadow-sm border border-gray-200';
+                div.innerHTML = `
+                <div class="flex justify-between items-center gap-4">
+                    <div class="flex-1 min-w-0">
+                        <h3 class="font-bold text-lg mb-1 text-text-primary">${task.title}</h3>
+                        <p class="text-gray-600">${task.description}</p>
+                        <div class="flex flex-1 gap-2">
+                            <p class="font-extrabold">Status : <span class="text-green-600 font-bold">${task.status}</span></p>
+                            <p class="font-extrabold">Priorité : <span class="text-primary font-bold">${task.priority}</span></p>
+                        </div>
+                        
+                    </div>
+                    <button class="delete-task shrink-0 text-red-500 hover:text-red-700 hover:bg-red-50 p-3 rounded-lg transition-colors" data-id="${task.id}">
+                        <i class="fa-solid fa-trash text-lg pointer-events-none"></i>
+                    </button>
+                </div>`;
+                recTasks.appendChild(div);
+            })
+        }
+    }
+    const selectStatus = document.querySelector('#statusSelect');
+    if (selectStatus) {
+
+        selectStatus.addEventListener('change', (e) => {
+
+            let key = e.target.value.toLowerCase().trim();
+
+            const task = localStorage.getItem('tasks');
+            if (task) {
+                afficheTasks(selectStatus, selectPriority)
+            }
+
+        })
+
+    }
+    const selectPriority = document.querySelector('#prioritySelect');
+    if (selectPriority) {
+        selectPriority.addEventListener('change', (e) => {
+            afficheTasks(selectStatus, selectPriority)
+        })
+    }
+    function afficheTasks(selectedTasks , priority) {
+
+        const task = localStorage.getItem('tasks');
+        if (task) {
+            const statusKey = selectedTasks.value.toLowerCase().trim();
+            const priorityKey = priority.value.toLowerCase().trim();
+
+            const task = localStorage.getItem('tasks');
+            if (!task) return;
+
+            let tasks = JSON.parse(task);
+
+            if (statusKey !== "") {
+                tasks = tasks.filter(t => t.status.toLowerCase() === statusKey);
+            }
+
+            if (priorityKey !== "") {
+                tasks = tasks.filter(t => t.priority.toLowerCase() === priorityKey);
+            }
+
+            taskContainer.innerHTML = '';
+
+            tasks.forEach(task => {
+                const div = document.createElement('div');
+                div.className = 'bg-white p-4 rounded-xl mb-3 shadow-sm border border-gray-200';
+
+                div.innerHTML = `
+                        <div class="flex justify-between items-center gap-4">
+                            <div class="flex-1 min-w-0">
+                                <h3 class="font-bold text-lg mb-1 text-text-primary">${task.title}</h3>
+                                <p class="text-gray-600">${task.description}</p>
+                                <div class="flex flex-1 gap-2">
+                                    <p class="font-extrabold">Status : 
+                                        <span class="text-green-600 font-bold">${task.status}</span>
+                                    </p>
+                                    <p class="font-extrabold">Priorité : 
+                                        <span class="text-primary font-bold">${task.priority}</span>
+                                    </p>
+                                </div>
+                            </div>
+                            <button class="delete-task shrink-0 text-red-500 hover:text-red-700 hover:bg-red-50 p-3 rounded-lg transition-colors" data-id="${task.id}">
+                                <i class="fa-solid fa-trash text-lg pointer-events-none"></i>
+                            </button>
+                        </div>
+                    `;
+
+                taskContainer.appendChild(div);
+            });
+        }
+
+    }
+    const searchTasks = document.querySelector('#task-search-input');
+    if (searchTasks) {
+        searchTasks.addEventListener('input', (e) => {
+            const tasks = localStorage.getItem('tasks');
+            let inputContent = searchTasks.value.toLowerCase().trim();
+
+            if (!tasks) {
+                return ;
+            }
+            let task = JSON.parse(tasks)
+            if (inputContent !== '') {
+                task = task.filter(t =>
+                    t.title.toLowerCase().includes(inputContent)
+                );
+            }
+            taskContainer.innerHTML = '';
+            task.forEach((task) => {
+                const div = document.createElement('div');
+                div.className = 'bg-white p-4 rounded-xl mb-3 shadow-sm border border-gray-200';
+
+                div.innerHTML = `
+                        <div class="flex justify-between items-center gap-4">
+                            <div class="flex-1 min-w-0">
+                                <h3 class="font-bold text-lg mb-1 text-text-primary">${task.title}</h3>
+                                <p class="text-gray-600">${task.description}</p>
+                                <div class="flex flex-1 gap-2">
+                                    <p class="font-extrabold">Status : 
+                                        <span class="text-green-600 font-bold">${task.status}</span>
+                                    </p>
+                                    <p class="font-extrabold">Priorité : 
+                                        <span class="text-primary font-bold">${task.priority}</span>
+                                    </p>
+                                </div>
+                            </div>
+                            <button class="delete-task shrink-0 text-red-500 hover:text-red-700 hover:bg-red-50 p-3 rounded-lg transition-colors" data-id="${task.id}">
+                                <i class="fa-solid fa-trash text-lg pointer-events-none"></i>
+                            </button>
+                        </div>
+                    `;
+
+                taskContainer.appendChild(div);
+            })
+        })
+    }
 });
+
